@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LearnProof — Certificate Trust MVP</title>
+<style>
+:root{--bg:#f5f7fb;--ink:#152238;--muted:#617089;--line:#dfe6f0;--blue:#2457e6;--navy:#102347;--mint:#dff8ed;--amber:#fff0cf;--rose:#ffe2e2;--card:#fff}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+button,input,select{font:inherit}button{cursor:pointer}.top{background:var(--navy);color:white;padding:14px max(20px,calc((100% - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-weight:850;letter-spacing:-.04em;font-size:22px}.brand span{color:#81e6c0}.top small{color:#c6d2e8}.lang{border:1px solid #536785;background:transparent;color:white;padding:8px 12px;border-radius:10px}
+.wrap{max-width:1120px;margin:auto;padding:28px 20px 64px}.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:center;padding:26px 0 32px}.eyebrow{color:var(--blue);font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:.12em}.hero h1{font-size:clamp(32px,5vw,54px);line-height:1.05;letter-spacing:-.05em;margin:10px 0 16px}.hero p{font-size:17px;color:var(--muted);max-width:690px}.hero-card{background:linear-gradient(145deg,#102347,#2457e6);color:white;border-radius:22px;padding:24px;box-shadow:0 18px 40px #1522381c}.hero-card .big{font-size:38px;font-weight:850;letter-spacing:-.04em}.hero-card p{color:#e1eaff;font-size:14px}.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.pill{font-size:12px;font-weight:750;padding:6px 10px;border-radius:999px;background:#eaf0ff;color:#2045ad}.pill.green{background:var(--mint);color:#126144}.nav{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:22px}.nav button{border:1px solid var(--line);background:white;color:var(--muted);padding:10px 14px;border-radius:12px;font-weight:750}.nav button.active{background:var(--blue);color:white;border-color:var(--blue)}
+.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 6px 20px #15223808}.card h2,.card h3{margin:0 0 8px;letter-spacing:-.025em}.muted{color:var(--muted)}.field{display:flex;gap:10px;margin:18px 0}.field input{min-width:0;flex:1;border:1px solid #cbd5e4;border-radius:12px;padding:13px 14px;background:white}.primary{border:0;border-radius:12px;background:var(--blue);color:white;font-weight:800;padding:12px 17px}.secondary{border:1px solid var(--line);background:white;color:var(--ink);border-radius:12px;padding:11px 14px;font-weight:750}.result{margin-top:16px;display:none}.result.show{display:block}.status{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:850}.status.high{background:var(--mint);color:#126144}.status.limited{background:var(--amber);color:#805600}.status.unverified{background:var(--rose);color:#922f2f}.scoreline{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:12px 0 5px;font-size:14px}.bar{height:8px;background:#e9edf5;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:var(--blue);border-radius:999px}.notice{border-radius:12px;padding:13px 14px;background:#f0f4ff;color:#344b7d;font-size:13px;margin-top:14px}.split{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.metric{border:1px solid var(--line);border-radius:14px;padding:14px}.metric strong{display:block;font-size:22px}.metric small{color:var(--muted)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.step{background:#f8faff;border:1px solid var(--line);border-radius:14px;padding:16px}.step b{display:block;margin-bottom:5px}.list{padding-left:20px;color:var(--muted)}.list li{margin:8px 0}.tagrow{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.tag{font-size:12px;border:1px solid var(--line);padding:5px 8px;border-radius:8px;background:white;color:var(--muted)}
+.interview-layout{display:grid;grid-template-columns:.75fr 1.25fr;gap:18px}.timer{font-size:42px;font-weight:850;letter-spacing:-.05em}.progress{height:7px;background:#e9edf5;border-radius:99px;overflow:hidden;margin:12px 0}.progress span{height:100%;display:block;width:0;background:#2dbb86;transition:width .25s}.question{font-size:21px;font-weight:800;line-height:1.3;margin:16px 0}.answer{width:100%;min-height:135px;border:1px solid #cbd5e4;border-radius:12px;padding:14px;resize:vertical}.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);margin:14px 0}.consent input{margin-top:4px}.hidden{display:none!important}.foot{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px}
+[dir="rtl"]{text-align:right}[dir="rtl"] .list{padding-left:0;padding-right:20px}[dir="rtl"] .field{flex-direction:row-reverse}[dir="rtl"] .consent{flex-direction:row-reverse}[dir="rtl"] .scoreline{flex-direction:row-reverse}
+@media(max-width:780px){.hero,.grid,.interview-layout{grid-template-columns:1fr}.hero{padding-top:18px}.steps{grid-template-columns:1fr}.split{grid-template-columns:1fr}.top{padding:14px 18px}.field{flex-direction:column}.field .primary{width:100%}.wrap{padding:20px 14px 44px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div><div class="brand">Learn<span>Proof</span></div><small id="topSub">Evidence-based learning verification</small></div>
+  <button class="lang" id="langBtn" type="button">العربية</button>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow" id="eyebrow">CERTIFICATE TRUST MVP</div>
+      <h1 id="heroTitle">Completion is not the same as competence.</h1>
+      <p id="heroDesc">LearnProof helps employers distinguish a learner who completed a course from a learner who demonstrated what they learned. It combines assessment evidence, a structured timed interview, and transparent confidence signals—without pretending that one score proves job performance.</p>
+      <div class="pills"><span class="pill green" id="pill1">Evidence, not just attendance</span><span class="pill" id="pill2">AI-aware, not AI-punitive</span><span class="pill" id="pill3">Built for an MVP</span></div>
+    </div>
+    <aside class="hero-card"><div class="eyebrow" style="color:#9bdcc6" id="cardEyebrow">THE CORE DISTINCTION</div><div class="big" id="cardBig">Completed ≠ Learned</div><p id="cardText">A certificate should communicate what was observed, what was assessed, and what remains unknown.</p></aside>
+  </section>
+  <nav class="nav">
+    <button class="active" data-tab="verify" id="tabVerify">Verify a certificate</button>
+    <button data-tab="interview" id="tabInterview">Timed assessment demo</button>
+    <button data-tab="concept" id="tabConcept">The idea, in detail</button>
+  </nav>
+
+  <section class="panel active" id="verify">
+    <div class="grid">
+      <div class="card">
+        <h2 id="verifyTitle">Partner certificate check</h2>
+        <p class="muted" id="verifyDesc">Enter a sample ID to see the evidence behind the result. These are fictional demonstration records.</p>
+        <form class="field" id="verifyForm"><input id="certId" value="LP-2048" aria-label="Certificate ID" placeholder="e.g. LP-2048"><button class="primary" type="submit" id="checkBtn">Check certificate</button></form>
+        <div class="result show" id="result">
+          <span class="status high" id="resultStatus">Evidence-supported</span>
+          <h3 id="resultName" style="margin-top:12px">Product Analytics Foundations</h3>
+          <p class="muted" id="resultLearner">Learner: Demo Learner · Learning route: Self-directed</p>
+          <div class="split">
+            <div class="metric"><strong id="evidenceScore">82/100</strong><small id="evidenceLabel">Evidence coverage</small></div>
+            <div class="metric"><strong id="assessmentType">Project</strong><small id="assessmentLabel">Assessment type</small></div>
+            <div class="metric"><strong id="courseVersion">v2.0</strong><small id="versionLabel">Course version</small></div>
+          </div>
+          <h3 style="margin-top:20px" id="evidenceTitle">Evidence behind the result</h3>
+          <div id="evidenceRows"></div>
+          <div class="notice" id="resultNote">This signal reflects the evidence available for this certificate; it is not a guarantee of job performance.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h2 id="howTitle">How to interpret the signal</h2>
+        <div class="steps" style="grid-template-columns:1fr">
+          <div class="step"><b id="highTitle">Evidence-supported</b><span class="muted" id="highText">A meaningful assessment exists and the result is recorded and attributable.</span></div>
+          <div class="step"><b id="limitedTitle">Completion only / limited evidence</b><span class="muted" id="limitedText">The course was completed, but evidence of competence is absent or weak.</span></div>
+          <div class="step"><b id="reviewTitle">Needs review</b><span class="muted" id="reviewText">The record is missing, inconsistent, disputed, or tied to a changed course standard.</span></div>
+        </div>
+        <p class="notice" id="fairnessNote">AI use is not automatically misconduct. The assessment considers the learner's explanation, application, and ability to defend their work—not a guess that AI was used.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="interview">
+    <div class="interview-layout">
+      <div class="card">
+        <h2 id="demoTitle">Timed interview — demo</h2>
+        <p class="muted" id="demoDesc">A clickable prototype of the proposed assessment flow. Timer and answers run locally in this browser only.</p>
+        <div class="timer" id="timer">12:00</div>
+        <div class="progress"><span id="progressBar"></span></div>
+        <p class="muted"><span id="qCount">Question 1 of 3</span></p>
+        <div class="tagrow"><span class="tag" id="tag1">Section 1 · Work readiness</span><span class="tag" id="tag2">Section 2 · Core knowledge</span><span class="tag" id="tag3">Section 3 · Applied reasoning</span></div>
+        <label class="consent"><input type="checkbox" id="screenConsent"><span id="screenConsentText">I understand that a real assessment may request screen sharing, with clear consent and a visible indicator. This demo does not access or record my screen.</span></label>
+        <label class="consent"><input type="checkbox" id="integrityConsent"><span id="integrityConsentText">I understand the assessment rules and will disclose tools I used when asked. AI assistance itself is not automatically a negative signal.</span></label>
+        <button class="primary" id="startBtn" type="button">Start demo</button>
+        <button class="secondary hidden" id="nextBtn" type="button">Save answer & next</button>
+        <p class="notice" id="demoNotice">Prototype limitation: two-open link limits, browser enforcement, secure identity checks, real screen capture, and server-side scoring are not implemented here.</p>
+      </div>
+      <div class="card">
+        <div class="eyebrow" id="sectionEyebrow">SECTION 1 OF 3</div>
+        <div class="question" id="question">Tell us about a time you received feedback and changed your approach. What did you do, and what changed?</div>
+        <p class="muted" id="questionHint">Answer as you would in a real interview. The objective is to observe reasoning and clarity, not memorized wording.</p>
+        <textarea class="answer" id="answer" placeholder="Write your answer here..." disabled></textarea>
+        <div id="endMessage" class="notice hidden"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="concept">
+    <div class="card">
+      <div class="eyebrow" id="conceptEyebrow">PROBLEM → DESIGN → TRUST</div>
+      <h2 id="conceptTitle">Distinguish course completion from demonstrated learning.</h2>
+      <p class="muted" id="conceptIntro">The product should not force every course into the same assessment model. It should show partners the strength and limits of the evidence available, then offer a consistent, structured way to collect more evidence where needed.</p>
+      <div class="steps">
+        <div class="step"><b id="c1title">1. Completion record</b><span class="muted" id="c1text">Confirms the learner met the platform's existing completion rule. It does not, by itself, prove competence.</span></div>
+        <div class="step"><b id="c2title">2. Evidence layer</b><span class="muted" id="c2text">Connects quiz results, proctored exams, projects, and a structured timed interview to the certificate.</span></div>
+        <div class="step"><b id="c3title">3. Trust outcome</b><span class="muted" id="c3text">Communicates evidence strength, gaps, course version, and review status instead of presenting a binary badge as certainty.</span></div>
+      </div>
+      <h2 style="margin-top:28px" id="rulesTitle">Product rules</h2>
+      <ul class="list" id="rulesList">
+        <li>Courses with no assessment receive a completion-only / limited-evidence outcome—not a competence claim.</li>
+        <li>Existing certificates are not silently revoked. They retain their historical completion status and can be labeled “legacy — evidence not assessed under the current standard.”</li>
+        <li>Revised courses get versioned standards. Old certificates are evaluated against the version completed, not automatically against a new curriculum.</li>
+        <li>Corporate learners use the same evidence rules. Lower engagement is not itself proof of poor learning; account context is disclosed separately.</li>
+        <li>Screen sharing, if used in a real deployment, requires explicit consent, a clear explanation, minimum necessary collection, and an alternative review path. The prototype does not capture a screen.</li>
+        <li>AI usage is evaluated by disclosure, understanding, attribution, and ability to explain or adapt the answer—not by treating all AI assistance as cheating.</li>
+        <li>Scores are decision support, not a guarantee of workplace performance. Employers should combine evidence with role-relevant interviews or work samples.</li>
+      </ul>
+      <h2 style="margin-top:28px" id="flowTitle">Proposed candidate flow</h2>
+      <div class="steps">
+        <div class="step"><b id="f1title">1. Identity & rules</b><span class="muted" id="f1text">Open a time-limited link, check browser/session rules, explain permitted tools, and obtain consent.</span></div>
+        <div class="step"><b id="f2title">2. Three sections</b><span class="muted" id="f2text">Section 1: soft skills and work experience. Sections 2–3: specialty knowledge and applied scenarios.</span></div>
+        <div class="step"><b id="f3title">3. Transparent scorecard</b><span class="muted" id="f3text">Report soft skills, technical evidence, and answer reliability/tool-dependence separately, with evidence and reviewer notes.</span></div>
+      </div>
+      <div class="notice" id="mvpNotice"><b>MVP boundary:</b> Start with certificate verification, evidence mapping, 3-section timed assessment, reviewer rubric, and a partner-facing result. Defer full LMS integration, automated proctoring, and high-confidence AI detection. Browser and AI-detection signals are imperfect and should never be presented as proof by themselves.</div>
+    </div>
+  </section>
+  <footer class="foot"><span id="footerLeft">LearnProof · Concept prototype for Career-180 Quest #90</span><span id="footerRight">Demo records are fictional · Not a production verification service</span></footer>
+</main>
+<script>
+const records={
+ "LP-2048":{name:"Product Analytics Foundations",learner:"Demo Learner",route:"Self-directed",score:82,type:"Project",version:"v2.0",status:"high",items:[["Project rubric","Passed · 82/100"],["Identity / attribution","Recorded"],["Course version","v2.0 · current standard"],["AI/tool disclosure","Declared · oral defense consistent"]],note:"Evidence supports demonstrated capability within the project rubric. It does not guarantee job performance."},
+ "LP-1051":{name:"Introduction to Digital Marketing",learner:"Corporate learner",route:"Corporate cohort",score:18,type:"No assessment",version:"v1.0",status:"limited",items:[["Completion","Recorded"],["Knowledge assessment","Not available"],["Engagement context","Corporate cohort · interpret cautiously"],["Trust interpretation","Completion confirmed; competence not verified"]],note:"This record confirms completion only. Do not describe it as verified competence without additional assessment."},
+ "LP-3320":{name:"SQL for Business",learner:"Demo Learner",route:"Self-directed",score:68,type:"Auto-graded quiz",version:"v1.0 → v2.0",status:"limited",items:[["Quiz result","68% · auto-graded"],["Proctoring / identity","Not recorded"],["Course revision","Course updated after issuance"],["Trust interpretation","Valid historical certificate; new standard not retroactively applied"]],note:"The certificate remains valid as a historical completion record. Current-standard equivalence has not been established."},
+ "LP-7788":{name:"Cybersecurity Essentials",learner:"Corporate learner",route:"Corporate cohort",score:94,type:"Proctored exam",version:"v3.1",status:"high",items:[["Proctored exam","Passed · 94/100"],["Identity check","Recorded"],["Course version","v3.1"],["Review flags","None in demo record"]],note:"Strong assessment evidence is available. Employers should still validate relevance to their role."},
+ "LP-0000":null
+};
+let lang="en", running=false, seconds=720, timerId=null, qi=0, answers=[];
+const qs={
+ en:[
+ {section:"SECTION 1 OF 3",tag:"Work readiness",q:"Tell us about a time you received feedback and changed your approach. What did you do, and what changed?",hint:"Look for ownership, reflection, communication, and a concrete outcome."},
+ {section:"SECTION 2 OF 3",tag:"Core knowledge",q:"Explain the most important concept from your course in your own words. What is a common mistake people make with it?",hint:"Look for accurate understanding rather than copied definitions."},
+ {section:"SECTION 3 OF 3",tag:"Applied reasoning",q:"Here is a realistic work scenario related to your specialty. How would you solve it, what trade-offs would you consider, and how would you test your answer?",hint:"Look for application, assumptions, trade-offs, and ability to defend decisions."}
+ ],
+ ar:[
+ {section:"القسم الأول من 3",tag:"الاستعداد للعمل",q:"احكي عن موقف تلقيت فيه ملاحظات غيّرت طريقة عملك. عملت إيه، وإيه اللي اتغير؟",hint:"نبحث عن تحمّل المسؤولية والتعلّم والتواصل ونتيجة واضحة."},
+ {section:"القسم الثاني من 3",tag:"المعرفة الأساسية",q:"اشرح أهم مفهوم تعلمته في الكورس بأسلوبك. وإيه الخطأ الشائع اللي الناس بتقع فيه عند استخدامه؟",hint:"نبحث عن فهم حقيقي، مش تعريف محفوظ."},
+ {section:"القسم الثالث من 3",tag:"التطبيق العملي",q:"قدامك موقف عملي متعلق بتخصصك. هتحله إزاي؟ وإيه المفاضلات اللي هتراعيها، وهتختبر إجابتك إزاي؟",hint:"نبحث عن التطبيق والافتراضات والمفاضلات والقدرة على الدفاع عن القرار."}
+ ]};
+const copy={
+ en:{top:"Evidence-based learning verification",eyebrow:"CERTIFICATE TRUST MVP",heroTitle:"Completion is not the same as competence.",heroDesc:"LearnProof helps employers distinguish a learner who completed a course from a learner who demonstrated what they learned. It combines assessment evidence, a structured timed interview, and transparent confidence signals—without pretending that one score proves job performance.",pill1:"Evidence, not just attendance",pill2:"AI-aware, not AI-punitive",pill3:"Built for an MVP",cardEyebrow:"THE CORE DISTINCTION",cardBig:"Completed ≠ Learned",cardText:"A certificate should communicate what was observed, what was assessed, and what remains unknown.",tabVerify:"Verify a certificate",tabInterview:"Timed assessment demo",tabConcept:"The idea, in detail",verifyTitle:"Partner certificate check",verifyDesc:"Enter a sample ID to see the evidence behind the result. These are fictional demonstration records.",checkBtn:"Check certificate",howTitle:"How to interpret the signal",highTitle:"Evidence-supported",highText:"A meaningful assessment exists and the result is recorded and attributable.",limitedTitle:"Completion only / limited evidence",limitedText:"The course was completed, but evidence of competence is absent or weak.",reviewTitle:"Needs review",reviewText:"The record is missing, inconsistent, disputed, or tied to a changed course standard.",fairnessNote:"AI use is not automatically misconduct. The assessment considers the learner's explanation, application, and ability to defend their work—not a guess that AI was used.",demoTitle:"Timed interview — demo",demoDesc:"A clickable prototype of the proposed assessment flow. Timer and answers run locally in this browser only.",screenConsentText:"I understand that a real assessment may request screen sharing, with clear consent and a visible indicator. This demo does not access or record my screen.",integrityConsentText:"I understand the assessment rules and will disclose tools I used when asked. AI assistance itself is not automatically a negative signal.",startBtn:"Start demo",nextBtn:"Save answer & next",demoNotice:"Prototype limitation: two-open link limits, browser enforcement, secure identity checks, real screen capture, and server-side scoring are not implemented here.",sectionEyebrow:"SECTION 1 OF 3",questionHint:"Answer as you would in a real interview. The objective is to observe reasoning and clarity, not memorized wording.",conceptEyebrow:"PROBLEM → DESIGN → TRUST",conceptTitle:"Distinguish course completion from demonstrated learning.",conceptIntro:"The product should not force every course into the same assessment model. It should show partners the strength and limits of the evidence available, then offer a consistent, structured way to collect more evidence where needed.",c1title:"1. Completion record",c1text:"Confirms the learner met the platform's existing completion rule. It does not, by itself, prove competence.",c2title:"2. Evidence layer",c2text:"Connects quiz results, proctored exams, projects, and a structured timed interview to the certificate.",c3title:"3. Trust outcome",c3text:"Communicates evidence strength, gaps, course version, and review status instead of presenting a binary badge as certainty.",rulesTitle:"Product rules",rulesList:["Courses with no assessment receive a completion-only / limited-evidence outcome—not a competence claim.","Existing certificates are not silently revoked. They retain their historical completion status and can be labeled “legacy — evidence not assessed under the current standard.”","Revised courses get versioned standards. Old certificates are evaluated against the version completed, not automatically against a new curriculum.","Corporate learners use the same evidence rules. Lower engagement is not itself proof of poor learning; account context is disclosed separately.","Screen sharing, if used in a real deployment, requires explicit consent, a clear explanation, minimum necessary collection, and an alternative review path. The prototype does not capture a screen.","AI usage is evaluated by disclosure, understanding, attribution, and ability to explain or adapt the answer—not by treating all AI assistance as cheating.","Scores are decision support, not a guarantee of workplace performance. Employers should combine evidence with role-relevant interviews or work samples."],flowTitle:"Proposed candidate flow",f1title:"1. Identity & rules",f1text:"Open a time-limited link, check browser/session rules, explain permitted tools, and obtain consent.",f2title:"2. Three sections",f2text:"Section 1: soft skills and work experience. Sections 2–3: specialty knowledge and applied scenarios.",f3title:"3. Transparent scorecard",f3text:"Report soft skills, technical evidence, and answer reliability/tool-dependence separately, with evidence and reviewer notes.",mvpNotice:"MVP boundary: Start with certificate verification, evidence mapping, 3-section timed assessment, reviewer rubric, and a partner-facing result. Defer full LMS integration, automated proctoring, and high-confidence AI detection. Browser and AI-detection signals are imperfect and should never be presented as proof by themselves.",footerLeft:"LearnProof · Concept prototype for Career-180 Quest #90",footerRight:"Demo records are fictional · Not a production verification service",evidenceLabel:"Evidence coverage",assessmentLabel:"Assessment type",versionLabel:"Course version",evidenceTitle:"Evidence behind the result",resultNote:"This signal reflects the evidence available for this certificate; it is not a guarantee of job performance.",learner:"Learner",route:"Learning route",completion:"Completion",assessment:"Assessment",identity:"Identity / attribution",version:"Course version",toolUse:"AI/tool disclosure",notFound:"No sample record found. Try LP-2048, LP-1051, LP-3320, or LP-7788.",started:"Demo started. The timer is running.",needConsent:"Please accept both assessment notices before starting.",done:"Demo complete. Your responses stayed in this browser and were not sent to a server.",timeUp:"Time is up. Demo complete.",question:"Question",of:"of",placeholder:"Write your answer here..."},
+ ar:{top:"التحقق من التعلّم بالأدلة",eyebrow:"نموذج أولي للتحقق من الشهادات",heroTitle:"إتمام الكورس مش معناه إن الشخص أتقنه.",heroDesc:"يساعد LearnProof أصحاب العمل على التمييز بين شخص أتم الكورس وشخص أثبت ما تعلّمه. يجمع بين أدلة التقييم ومقابلة منظمة محددة بوقت وإشارات ثقة واضحة، من غير ادعاء أن درجة واحدة تضمن الأداء الوظيفي.",pill1:"أدلة مش مجرد حضور",pill2:"يفهم استخدام AI من غير عقاب تلقائي",pill3:"مناسب كبداية MVP",cardEyebrow:"الفرق الأساسي",cardBig:"أتمّ ≠ أتقن",cardText:"الشهادة لازم توضح إيه اللي اتقاس واتلاحظ، وإيه اللي لسه مش معروف.",tabVerify:"تحقق من شهادة",tabInterview:"تجربة التقييم المحدد بوقت",tabConcept:"شرح الفكرة بالتفصيل",verifyTitle:"التحقق من شهادة للشريك",verifyDesc:"أدخل رقمًا تجريبيًا لمشاهدة الأدلة وراء النتيجة. البيانات هنا وهمية للتوضيح.",checkBtn:"تحقق من الشهادة",howTitle:"إزاي نفهم النتيجة؟",highTitle:"أدلة تدعم الكفاءة",highText:"يوجد تقييم له معنى ونتيجته مسجلة ويمكن ربطها بالمتعلم.",limitedTitle:"إتمام فقط / أدلة محدودة",limitedText:"الكورس اكتمل، لكن لا توجد أدلة كافية على الكفاءة.",reviewTitle:"تحتاج مراجعة",reviewText:"السجل ناقص أو متعارض أو محل اعتراض أو مرتبط بتغيير معيار الكورس.",fairnessNote:"استخدام AI مش مخالفة تلقائيًا. التقييم يركز على فهم المتعلم وتطبيقه وقدرته على شرح شغله، مش التخمين إنه استخدم AI.",demoTitle:"المقابلة المحددة بوقت — تجربة",demoDesc:"نموذج تفاعلي لتجربة التقييم المقترح. المؤقت والإجابات يعملان محليًا داخل المتصفح فقط.",screenConsentText:"فاهم إن التقييم الحقيقي ممكن يطلب مشاركة الشاشة بموافقة واضحة ومؤشر ظاهر. النموذج ده لا يصل للشاشة ولا يسجلها.",integrityConsentText:"فاهم قواعد التقييم وهصرّح بالأدوات اللي استخدمتها لو اتسألت. استخدام AI وحده مش إشارة سلبية تلقائية.",startBtn:"ابدأ التجربة",nextBtn:"احفظ الإجابة وانتقل",demoNotice:"حدود النموذج: تحديد فتح الرابط مرتين، فرض قيود المتصفح، التحقق الآمن من الهوية، التقاط الشاشة الفعلي، والتقييم من خلال خادم غير منفذة هنا.",sectionEyebrow:"القسم الأول من 3",questionHint:"جاوب كأنك في مقابلة حقيقية. الهدف فهم طريقة التفكير والوضوح، مش حفظ كلام جاهز.",conceptEyebrow:"المشكلة ← التصميم ← الثقة",conceptTitle:"نفرّق بين إتمام الكورس وإثبات التعلّم.",conceptIntro:"مش لازم نفرض نفس طريقة التقييم على كل الكورسات. لازم نوضح للشريك قوة الأدلة وحدودها، ونوفر طريقة منظمة لجمع أدلة إضافية عند الحاجة.",c1title:"1. سجل الإتمام",c1text:"يؤكد إن المتعلم حقق شروط الإتمام الحالية في المنصة، لكنه وحده لا يثبت الكفاءة.",c2title:"2. طبقة الأدلة",c2text:"تربط نتيجة الاختبار والمشروع والامتحان المراقب والمقابلة المنظمة بالشهادة.",c3title:"3. نتيجة الثقة",c3text:"توضح قوة الأدلة والفجوات وإصدار الكورس وحالة المراجعة بدل شارة نجاح ثنائية توحي باليقين.",rulesTitle:"قواعد المنتج",rulesList:["الكورسات التي لا تحتوي على تقييم تحصل على نتيجة «إتمام فقط / أدلة محدودة»، وليس ادعاءً بإثبات الكفاءة.","لا تُلغى الشهادات القديمة بصمت. تحتفظ بسجل الإتمام التاريخي ويمكن وسمها «قديمة — لم تُقيّم الأدلة وفق المعيار الحالي».","لكل نسخة معدلة من الكورس معيار بإصدار واضح. تُقيّم الشهادة وفق النسخة التي درسها المتعلم، ولا تُقارن تلقائيًا بمنهج جديد.","تُطبق قواعد الأدلة نفسها على متعلمي الشركات والأفراد. انخفاض التفاعل وحده لا يثبت ضعف التعلّم، ويُعرض سياق الحساب بشكل منفصل.","مشاركة الشاشة في أي تطبيق حقيقي تتطلب موافقة صريحة وشرحًا واضحًا وجمع الحد الأدنى من البيانات ومسار مراجعة بديلًا. النموذج لا يسجل الشاشة.","يُقيّم استخدام AI من خلال الإفصاح والفهم ونسبة العمل لصاحبه والقدرة على الشرح أو التعديل، لا باعتبار كل استخدام غشًا.","النتائج تساعد في اتخاذ القرار ولا تضمن الأداء الوظيفي. الأفضل أن يجمع صاحب العمل بينها وبين مقابلة أو عينة عمل مرتبطة بالدور."],flowTitle:"رحلة المتقدم المقترحة",f1title:"1. الهوية والقواعد",f1text:"فتح رابط محدد المدة، مراجعة قواعد الجلسة والمتصفح، توضيح الأدوات المسموحة، وأخذ الموافقة.",f2title:"2. ثلاثة أقسام",f2text:"الأول للمهارات الناعمة والخبرة، والثاني والثالث للمعرفة الفنية والتطبيق العملي.",f3title:"3. نتيجة واضحة",f3text:"عرض درجات منفصلة للمهارات الناعمة والأدلة الفنية ومصداقية الإجابات والاعتماد على الأدوات، مع الأدلة وملاحظات المراجع.",mvpNotice:"حدود الـ MVP: نبدأ بالتحقق من الشهادات وربط الأدلة والتقييم المحدد بوقت في 3 أقسام ومعيار مراجعة ونتيجة للشريك. نؤجل ربط LMS الكامل والمراقبة الآلية وكشف AI عالي الثقة. إشارات المتصفح وكشف AI غير مثالية ولا يجب تقديمها كدليل قاطع وحدها.",footerLeft:"LearnProof · نموذج تصوري لتحدي Career-180 رقم 90",footerRight:"البيانات تجريبية · ليست خدمة تحقق إنتاجية",evidenceLabel:"تغطية الأدلة",assessmentLabel:"نوع التقييم",versionLabel:"نسخة الكورس",evidenceTitle:"الأدلة وراء النتيجة",resultNote:"الإشارة تعكس الأدلة المتاحة لهذه الشهادة، ولا تضمن الأداء الوظيفي.",learner:"المتعلم",route:"مسار التعلّم",completion:"الإتمام",assessment:"التقييم",identity:"الهوية / نسبة العمل لصاحبه",version:"نسخة الكورس",toolUse:"الإفصاح عن AI والأدوات",notFound:"لم نجد سجلًا تجريبيًا. جرّب LP-2048 أو LP-1051 أو LP-3320 أو LP-7788.",started:"بدأت التجربة والمؤقت يعمل.",needConsent:"يرجى الموافقة على التنبيهين قبل بدء التجربة.",done:"انتهت التجربة. إجاباتك بقيت في هذا المتصفح ولم تُرسل إلى خادم.",timeUp:"انتهى الوقت. اكتملت التجربة.",question:"السؤال",of:"من",placeholder:"اكتب إجابتك هنا..."}
+};
+function setText(id,key){const el=document.getElementById(id);if(el&&copy[lang][key]!==undefined)el.textContent=copy[lang][key]}
+function switchLang(){
+ lang=lang==="en"?"ar":"en";document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";document.getElementById("langBtn").textContent=lang==="en"?"العربية":"English";
+ const map={topSub:"top",eyebrow:"eyebrow",heroTitle:"heroTitle",heroDesc:"heroDesc",pill1:"pill1",pill2:"pill2",pill3:"pill3",cardEyebrow:"cardEyebrow",cardBig:"cardBig",cardText:"cardText",tabVerify:"tabVerify",tabInterview:"tabInterview",tabConcept:"tabConcept",verifyTitle:"verifyTitle",verifyDesc:"verifyDesc",checkBtn:"checkBtn",howTitle:"howTitle",highTitle:"highTitle",highText:"highText",limitedTitle:"limitedTitle",limitedText:"limitedText",reviewTitle:"reviewTitle",reviewText:"reviewText",fairnessNote:"fairnessNote",demoTitle:"demoTitle",demoDesc:"demoDesc",screenConsentText:"screenConsentText",integrityConsentText:"integrityConsentText",startBtn:"startBtn",nextBtn:"nextBtn",demoNotice:"demoNotice",sectionEyebrow:"sectionEyebrow",questionHint:"questionHint",conceptEyebrow:"conceptEyebrow",conceptTitle:"conceptTitle",conceptIntro:"conceptIntro",c1title:"c1title",c1text:"c1text",c2title:"c2title",c2text:"c2text",c3title:"c3title",c3text:"c3text",rulesTitle:"rulesTitle",flowTitle:"flowTitle",f1title:"f1title",f1text:"f1text",f2title:"f2title",f2text:"f2text",f3title:"f3title",f3text:"f3text",mvpNotice:"mvpNotice",footerLeft:"footerLeft",footerRight:"footerRight",evidenceLabel:"evidenceLabel",assessmentLabel:"assessmentLabel",versionLabel:"versionLabel",evidenceTitle:"evidenceTitle",resultNote:"resultNote"};
+ Object.entries(map).forEach(([id,k])=>setText(id,k));
+ document.getElementById("rulesList").innerHTML=copy[lang].rulesList.map(x=>"<li>"+x+"</li>").join("");
+ document.getElementById("certId").placeholder=lang==="ar"?"مثال: LP-2048":"e.g. LP-2048";
+ document.getElementById("answer").placeholder=copy[lang].placeholder;
+ renderQuestion();
+ const active=document.querySelector(".panel.active");if(active?.id==="verify"&&document.getElementById("result").classList.contains("show"))showRecord(document.getElementById("certId").value.trim().toUpperCase());
+}
+document.getElementById("langBtn").addEventListener("click",switchLang);
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".panel").forEach(x=>x.classList.toggle("active",x.id===b.dataset.tab));}));
+function showRecord(id){
+ const r=records[id], box=document.getElementById("result");box.classList.add("show");
+ if(!r){document.getElementById("resultStatus").className="status unverified";document.getElementById("resultStatus").textContent=lang==="ar"?"غير موجود / يحتاج مراجعة":"Not found / review needed";document.getElementById("resultName").textContent=copy[lang].notFound;document.getElementById("resultLearner").textContent="";document.getElementById("evidenceRows").innerHTML="";document.getElementById("evidenceScore").textContent="—";document.getElementById("assessmentType").textContent="—";document.getElementById("courseVersion").textContent="—";document.getElementById("resultNote").textContent=copy[lang].notFound;return}
+ const statusText=lang==="ar"?(r.status==="high"?"أدلة تدعم الكفاءة":"إتمام فقط / أدلة محدودة"):(r.status==="high"?"Evidence-supported":"Completion only / limited evidence");
+ document.getElementById("resultStatus").className="status "+r.status;document.getElementById("resultStatus").textContent=statusText;document.getElementById("resultName").textContent=r.name;
+ document.getElementById("resultLearner").textContent=(lang==="ar"?"المتعلم: ":"Learner: ")+r.learner+" · "+(lang==="ar"?"المسار: ":"Route: ")+r.route;
+ document.getElementById("evidenceScore").textContent=r.score+"/100";document.getElementById("assessmentType").textContent=r.type;document.getElementById("courseVersion").textContent=r.version;
+ document.getElementById("evidenceRows").innerHTML=r.items.map(it=>`<div class="scoreline"><span>${it[0]}</span><b>${it[1]}</b></div>`).join("");
+ document.getElementById("resultNote").textContent=r.note;
+}
+document.getElementById("verifyForm").addEventListener("submit",e=>{e.preventDefault();showRecord(document.getElementById("certId").value.trim().toUpperCase())});
+function renderQuestion(){
+ const q=qs[lang][qi]||qs[lang][2];document.getElementById("sectionEyebrow").textContent=q.section;document.getElementById("question").textContent=q.q;document.getElementById("questionHint").textContent=q.hint;document.getElementById("qCount").textContent=(lang==="ar"?"السؤال ":"Question ")+(qi+1)+" "+copy[lang].of+" 3";document.getElementById("progressBar").style.width=(qi/3*100)+"%";
+}
+function finish(msg){running=false;clearInterval(timerId);document.getElementById("answer").disabled=true;document.getElementById("nextBtn").classList.add("hidden");document.getElementById("startBtn").classList.remove("hidden");document.getElementById("startBtn").textContent=lang==="ar"?"إعادة التجربة":"Restart demo";document.getElementById("endMessage").classList.remove("hidden");document.getElementById("endMessage").textContent=msg;document.getElementById("progressBar").style.width="100%";}
+document.getElementById("startBtn").addEventListener("click",()=>{
+ if(running){qi=0;seconds=720;answers=[];document.getElementById("answer").value="";document.getElementById("endMessage").classList.add("hidden");}
+ if(!document.getElementById("screenConsent").checked||!document.getElementById("integrityConsent").checked){alert(copy[lang].needConsent);return}
+ running=true;document.getElementById("answer").disabled=false;document.getElementById("startBtn").classList.add("hidden");document.getElementById("nextBtn").classList.remove("hidden");document.getElementById("answer").focus();renderQuestion();document.getElementById("endMessage").classList.add("hidden");
+ timerId=setInterval(()=>{seconds--;document.getElementById("timer").textContent=Math.floor(seconds/60).toString().padStart(2,"0")+":"+Math.max(0,seconds%60).toString().padStart(2,"0");if(seconds<=0)finish(copy[lang].timeUp)},1000);
+});
+document.getElementById("nextBtn").addEventListener("click",()=>{if(!running)return;answers[qi]=document.getElementById("answer").value;qi++;if(qi>=3){finish(copy[lang].done);return}document.getElementById("answer").value="";renderQuestion();});
+document.getElementById("timer").textContent="12:00";showRecord("LP-2048");
+</script>
+</body>
+</html>

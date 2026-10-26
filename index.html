@@ -1,189 +1,829 @@
-<!doctype html>
-<html lang="en">
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LearnProof — Certificate Trust MVP</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="LearnProof من Career-180: حوّل شهادة إتمام الكورس إلى دليل أوضح على المهارات المكتسبة.">
+<title>LearnProof | من إتمام الكورس إلى إثبات المهارة</title>
+
 <style>
-:root{--bg:#f5f7fb;--ink:#152238;--muted:#617089;--line:#dfe6f0;--blue:#2457e6;--navy:#102347;--mint:#dff8ed;--amber:#fff0cf;--rose:#ffe2e2;--card:#fff}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-button,input,select{font:inherit}button{cursor:pointer}.top{background:var(--navy);color:white;padding:14px max(20px,calc((100% - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-weight:850;letter-spacing:-.04em;font-size:22px}.brand span{color:#81e6c0}.top small{color:#c6d2e8}.lang{border:1px solid #536785;background:transparent;color:white;padding:8px 12px;border-radius:10px}
-.wrap{max-width:1120px;margin:auto;padding:28px 20px 64px}.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:center;padding:26px 0 32px}.eyebrow{color:var(--blue);font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:.12em}.hero h1{font-size:clamp(32px,5vw,54px);line-height:1.05;letter-spacing:-.05em;margin:10px 0 16px}.hero p{font-size:17px;color:var(--muted);max-width:690px}.hero-card{background:linear-gradient(145deg,#102347,#2457e6);color:white;border-radius:22px;padding:24px;box-shadow:0 18px 40px #1522381c}.hero-card .big{font-size:38px;font-weight:850;letter-spacing:-.04em}.hero-card p{color:#e1eaff;font-size:14px}.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.pill{font-size:12px;font-weight:750;padding:6px 10px;border-radius:999px;background:#eaf0ff;color:#2045ad}.pill.green{background:var(--mint);color:#126144}.nav{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:22px}.nav button{border:1px solid var(--line);background:white;color:var(--muted);padding:10px 14px;border-radius:12px;font-weight:750}.nav button.active{background:var(--blue);color:white;border-color:var(--blue)}
-.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 6px 20px #15223808}.card h2,.card h3{margin:0 0 8px;letter-spacing:-.025em}.muted{color:var(--muted)}.field{display:flex;gap:10px;margin:18px 0}.field input{min-width:0;flex:1;border:1px solid #cbd5e4;border-radius:12px;padding:13px 14px;background:white}.primary{border:0;border-radius:12px;background:var(--blue);color:white;font-weight:800;padding:12px 17px}.secondary{border:1px solid var(--line);background:white;color:var(--ink);border-radius:12px;padding:11px 14px;font-weight:750}.result{margin-top:16px;display:none}.result.show{display:block}.status{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:850}.status.high{background:var(--mint);color:#126144}.status.limited{background:var(--amber);color:#805600}.status.unverified{background:var(--rose);color:#922f2f}.scoreline{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:12px 0 5px;font-size:14px}.bar{height:8px;background:#e9edf5;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:var(--blue);border-radius:999px}.notice{border-radius:12px;padding:13px 14px;background:#f0f4ff;color:#344b7d;font-size:13px;margin-top:14px}.split{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.metric{border:1px solid var(--line);border-radius:14px;padding:14px}.metric strong{display:block;font-size:22px}.metric small{color:var(--muted)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.step{background:#f8faff;border:1px solid var(--line);border-radius:14px;padding:16px}.step b{display:block;margin-bottom:5px}.list{padding-left:20px;color:var(--muted)}.list li{margin:8px 0}.tagrow{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.tag{font-size:12px;border:1px solid var(--line);padding:5px 8px;border-radius:8px;background:white;color:var(--muted)}
-.interview-layout{display:grid;grid-template-columns:.75fr 1.25fr;gap:18px}.timer{font-size:42px;font-weight:850;letter-spacing:-.05em}.progress{height:7px;background:#e9edf5;border-radius:99px;overflow:hidden;margin:12px 0}.progress span{height:100%;display:block;width:0;background:#2dbb86;transition:width .25s}.question{font-size:21px;font-weight:800;line-height:1.3;margin:16px 0}.answer{width:100%;min-height:135px;border:1px solid #cbd5e4;border-radius:12px;padding:14px;resize:vertical}.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);margin:14px 0}.consent input{margin-top:4px}.hidden{display:none!important}.foot{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px}
-[dir="rtl"]{text-align:right}[dir="rtl"] .list{padding-left:0;padding-right:20px}[dir="rtl"] .field{flex-direction:row-reverse}[dir="rtl"] .consent{flex-direction:row-reverse}[dir="rtl"] .scoreline{flex-direction:row-reverse}
-@media(max-width:780px){.hero,.grid,.interview-layout{grid-template-columns:1fr}.hero{padding-top:18px}.steps{grid-template-columns:1fr}.split{grid-template-columns:1fr}.top{padding:14px 18px}.field{flex-direction:column}.field .primary{width:100%}.wrap{padding:20px 14px 44px}}
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --navy:#101827;
+  --navy2:#17243a;
+  --blue:#4776f5;
+  --blue-light:#edf2ff;
+  --teal:#16b89a;
+  --ink:#182338;
+  --muted:#69768a;
+  --line:#e6eaf1;
+  --bg:#f6f8fc;
+  --white:#fff;
+  --orange:#f3a34d;
+  --radius:22px;
+  --shadow:0 15px 45px rgba(25,39,70,.07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Cairo',Tahoma,Arial,sans-serif;
+  line-height:1.85
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1160px,92%);margin:auto}
+.topbar{
+  background:rgba(255,255,255,.95);border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:20;backdrop-filter:blur(15px)
+}
+.nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:22px;letter-spacing:-.5px}
+.brand-icon{
+  width:43px;height:43px;border-radius:14px;background:var(--blue);
+  display:grid;place-items:center;color:white;font-size:22px;
+  box-shadow:0 8px 20px #4776f544
+}
+.brand small{display:block;font-size:10px;color:var(--muted);font-weight:600;letter-spacing:1px;line-height:1.4}
+.nav-actions{display:flex;align-items:center;gap:9px}
+.btn{
+  border:0;border-radius:12px;padding:11px 18px;font-weight:800;
+  transition:.2s;display:inline-flex;justify-content:center;align-items:center;gap:8px
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--blue);color:white;box-shadow:0 8px 18px #4776f52b}
+.btn-light{background:white;border:1px solid var(--line);color:var(--ink)}
+.btn-dark{background:var(--navy);color:white}
+.btn:focus-visible,input:focus-visible{outline:3px solid #8da9ff;outline-offset:3px}
+.hero{
+  background:
+  radial-gradient(ellipse at 15% 20%,#315bb755,transparent 32%),
+  radial-gradient(ellipse at 90% 100%,#16b89a22,transparent 30%),
+  var(--navy);
+  color:white;overflow:hidden;position:relative
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:55px;align-items:center;padding:76px 0 84px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;border:1px solid #ffffff2c;
+  background:#ffffff0c;border-radius:100px;padding:6px 13px;color:#c7d6ff;
+  font-size:13px;font-weight:800
+}
+.eyebrow span{width:7px;height:7px;border-radius:50%;background:#4ee0bd}
+h1{font-size:clamp(35px,5vw,58px);line-height:1.35;letter-spacing:-1.5px;margin:20px 0}
+h1 em{font-style:normal;color:#8faaff}
+.hero-copy{font-size:17px;color:#c4cddd;max-width:600px;line-height:2}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:27px}
+.hero .btn-light{background:#ffffff12;border-color:#ffffff30;color:white}
+.hero-foot{font-size:12px;color:#9eabc0;margin-top:17px}
+.visual{
+  background:linear-gradient(145deg,#ffffff16,#ffffff06);
+  border:1px solid #ffffff25;border-radius:27px;padding:25px;
+  box-shadow:0 25px 80px #0002;transform:rotate(-1deg)
+}
+.visual-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:23px}
+.live-pill{font-size:11px;background:#16b89a22;color:#75f1d8;padding:5px 10px;border-radius:30px}
+.certificate{
+  background:white;color:var(--ink);border-radius:18px;padding:22px;
+  position:relative;overflow:hidden
+}
+.certificate:after{
+  content:"";position:absolute;left:-24px;bottom:-45px;width:130px;height:130px;
+  border:22px solid #4776f514;border-radius:50%
+}
+.cert-top{display:flex;justify-content:space-between;align-items:center}
+.cert-logo{background:var(--blue-light);color:var(--blue);padding:8px 12px;border-radius:10px;font-weight:900}
+.seal{width:51px;height:51px;border-radius:50%;border:2px solid #16b89a;
+  color:#16b89a;display:grid;place-items:center;font-size:23px}
+.cert-title{font-size:12px;color:var(--muted);margin-top:24px}
+.cert-name{font-size:22px;font-weight:900;margin:3px 0}
+.cert-course{font-size:13px;color:var(--muted)}
+.cert-bottom{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:16px;margin-top:22px;font-size:11px}
+.cert-bottom strong{display:block;font-size:13px}
+.score-preview{background:#fff;border-radius:17px;padding:18px;margin-top:13px;color:var(--ink)}
+.score-head{display:flex;justify-content:space-between;align-items:center}
+.score-number{font-size:25px;font-weight:900;color:var(--blue)}
+.mini-bars{display:grid;gap:12px;margin-top:12px}
+.mini-row{display:grid;grid-template-columns:105px 1fr 35px;gap:8px;align-items:center;font-size:11px}
+.bar{height:8px;background:#edf0f6;border-radius:20px;overflow:hidden}
+.bar span{display:block;height:100%;border-radius:20px;background:var(--blue)}
+.section{padding:78px 0}
+.section-white{background:white}
+.section-head{max-width:740px;margin-bottom:35px}
+.kicker{font-size:13px;font-weight:900;color:var(--blue);letter-spacing:.3px}
+h2{font-size:clamp(27px,3.5vw,39px);line-height:1.5;margin:9px 0 12px;letter-spacing:-.7px}
+.lead{color:var(--muted);font-size:16px;margin:0}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.panel{border:1px solid var(--line);border-radius:var(--radius);padding:25px;background:white}
+.panel.soft{background:#f7f9ff}
+.panel.dark{background:var(--navy);color:white;border-color:var(--navy)}
+.panel h3{font-size:19px;margin:10px 0}
+.panel p{margin:0;color:var(--muted);font-size:14px}
+.panel.dark p{color:#c4cddd}
+.icon-box{
+  width:48px;height:48px;display:grid;place-items:center;border-radius:15px;
+  background:var(--blue-light);color:var(--blue);font-size:24px
+}
+.panel.dark .icon-box{background:#ffffff14;color:#9db5ff}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:25px}
+.compare-card{padding:19px;border-radius:16px;border:1px solid var(--line);background:white}
+.compare-card.good{border-color:#bceee1;background:#f1fcf8}
+.compare-card h4{margin:0 0 8px}
+.compare-card ul{padding-right:20px;margin:0;font-size:13px;color:var(--muted)}
+.compare-card li{margin:5px 0}
+.tabs-wrap{padding-top:35px}
+.tabs{
+  display:flex;gap:8px;padding:7px;background:#eaf0fa;border-radius:16px;
+  width:fit-content;max-width:100%;margin-bottom:28px
+}
+.tab{
+  padding:11px 18px;border:0;border-radius:11px;background:transparent;
+  color:#596780;font-weight:900;white-space:nowrap
+}
+.tab[aria-selected="true"]{background:white;color:var(--blue);box-shadow:0 3px 12px #23385d0e}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:appear .25s ease}
+@keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+.steps{display:grid;gap:14px;margin-top:23px}
+.step{display:grid;grid-template-columns:42px 1fr;gap:13px;align-items:start}
+.step-num{
+  width:39px;height:39px;border-radius:12px;display:grid;place-items:center;
+  background:var(--blue-light);color:var(--blue);font-weight:900
+}
+.step h4{margin:0 0 3px;font-size:15px}
+.step p{margin:0;font-size:13px;color:var(--muted)}
+.callout{padding:17px 19px;border-radius:15px;background:#eef4ff;border:1px solid #dce6ff;font-size:13px;margin-top:20px}
+.callout.green{background:#effbf7;border-color:#d0f1e5}
+.callout.amber{background:#fff8ed;border-color:#f6e1c1}
+.card-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+.card-title h3{font-size:19px;margin:0}
+.tag{font-size:11px;font-weight:900;border-radius:30px;padding:5px 10px;background:#edf2ff;color:var(--blue)}
+.student-hero{
+  background:linear-gradient(140deg,#eef3ff,#f7faff);
+  border:1px solid #dfe7ff;border-radius:24px;padding:30px
+}
+.student-hero h3{font-size:26px;line-height:1.5;margin:12px 0}
+.student-hero p{color:var(--muted);font-size:14px}
+.benefit-list{display:grid;gap:12px;margin-top:20px}
+.benefit{display:flex;gap:10px;font-size:14px;align-items:start}
+.check{color:var(--teal);font-weight:900;font-size:18px}
+.assessment{border:1px solid var(--line);border-radius:22px;background:white;padding:25px;box-shadow:var(--shadow)}
+.assess-top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.clock{font-weight:900;font-size:22px;direction:ltr;color:var(--blue)}
+.progress{height:7px;border-radius:20px;background:#edf0f7;overflow:hidden;margin:17px 0}
+.progress span{display:block;height:100%;width:0;background:var(--blue);transition:width .3s}
+.part-list{display:grid;gap:9px;margin:20px 0}
+.part{
+  border:1px solid var(--line);border-radius:13px;padding:13px;
+  display:grid;grid-template-columns:35px 1fr auto;gap:10px;align-items:center
+}
+.part-icon{width:34px;height:34px;border-radius:10px;background:#edf2ff;display:grid;place-items:center}
+.part strong{font-size:13px}
+.part small{display:block;color:var(--muted);font-size:11px}
+.part time{font-size:12px;color:var(--muted);direction:ltr}
+.assessment textarea{
+  width:100%;min-height:120px;resize:vertical;border:1px solid var(--line);
+  border-radius:12px;padding:13px;background:#fafbfe;color:var(--ink)
+}
+.assessment textarea:focus{outline:2px solid #b4c7ff}
+.assess-actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:15px}
+.small-note{font-size:11px;color:var(--muted);line-height:1.8}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.metric{background:#f7f9fd;border:1px solid var(--line);padding:15px;border-radius:14px}
+.metric span{font-size:12px;color:var(--muted);display:block}
+.metric strong{font-size:25px;display:block;direction:ltr;text-align:right}
+.metric small{font-size:10px;color:var(--muted)}
+.business-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:22px;align-items:start}
+.search-box{display:flex;gap:9px;margin-top:15px}
+.search-box input{
+  min-width:0;flex:1;border:1px solid #dce2ed;background:#fafbfe;
+  border-radius:12px;padding:13px 14px;direction:ltr;text-align:left
+}
+.example-ids{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.example-id{
+  border:1px solid var(--line);background:white;border-radius:9px;padding:6px 9px;
+  font-size:11px;color:var(--blue);direction:ltr
+}
+.profile{display:none}
+.profile.visible{display:block}
+.profile-top{display:flex;justify-content:space-between;align-items:start;gap:15px}
+.avatar{
+  width:54px;height:54px;display:grid;place-items:center;border-radius:17px;
+  background:var(--blue-light);color:var(--blue);font-size:23px;font-weight:900
+}
+.profile-person{display:flex;gap:13px;align-items:center}
+.profile-person h3{margin:0;font-size:20px}
+.profile-person p{margin:0;color:var(--muted);font-size:12px}
+.status{font-size:11px;background:#e7f9f1;color:#168568;padding:6px 10px;border-radius:30px;font-weight:900}
+.data-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:21px 0}
+.data-cell{background:#f7f9fd;border:1px solid var(--line);padding:12px;border-radius:12px}
+.data-cell span{display:block;color:var(--muted);font-size:11px}
+.data-cell strong{display:block;font-size:13px}
+.level{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px;margin:15px 0 7px}
+.level .bar{flex:1;max-width:180px}
+.level b{min-width:37px;text-align:left;direction:ltr}
+.score-circle{
+  width:86px;height:86px;border-radius:50%;border:7px solid #d8f5eb;
+  display:grid;place-items:center;color:#168568;font-size:24px;font-weight:900;direction:ltr
+}
+.empty-state{text-align:center;padding:35px 12px;color:var(--muted)}
+.empty-state .icon-box{margin:0 auto 12px}
+.footer{background:var(--navy);color:white;padding:35px 0}
+.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.footer p{color:#aab6c8;font-size:12px;margin:4px 0}
+.disclaimer{font-size:11px;color:var(--muted);margin-top:20px}
+.toast{font-size:13px;margin-top:12px;color:var(--blue);min-height:24px}
+[hidden]{display:none!important}
+@media(max-width:800px){
+ .hero-grid,.feature-grid,.business-grid{grid-template-columns:1fr}
+ .hero-grid{padding:48px 0 58px;gap:35px}
+ .visual{max-width:550px;width:100%;margin:auto}
+ .problem-grid{grid-template-columns:1fr}
+ .section{padding:55px 0}
+ .nav{min-height:68px}
+ .brand{font-size:19px}
+ .nav-actions .btn{padding:9px 11px;font-size:12px}
+ .tabs{width:100%;display:grid;grid-template-columns:1fr}
+ .tab{text-align:center}
+}
+@media(max-width:480px){
+ h1{font-size:35px}
+ .hero-copy{font-size:15px}
+ .compare{grid-template-columns:1fr}
+ .result-grid{grid-template-columns:1fr}
+ .data-grid{grid-template-columns:1fr}
+ .profile-top{flex-direction:column}
+ .assessment,.panel,.student-hero{padding:18px}
+ .search-box{flex-direction:column}
+ .search-box .btn{width:100%}
+}
 </style>
 </head>
+
 <body>
-<header class="top">
-  <div><div class="brand">Learn<span>Proof</span></div><small id="topSub">Evidence-based learning verification</small></div>
-  <button class="lang" id="langBtn" type="button">العربية</button>
+<header class="topbar">
+  <div class="wrap nav">
+    <a href="#home" class="brand" aria-label="LearnProof الصفحة الرئيسية">
+      <span class="brand-icon">✓</span>
+      <span>LearnProof<small>BY CAREER-180</small></span>
+    </a>
+    <div class="nav-actions">
+      <button class="btn btn-light" onclick="switchTab('student')">أنا طالب</button>
+      <button class="btn btn-primary" onclick="switchTab('employer')">أنا صاحب عمل ↗</button>
+    </div>
+  </div>
 </header>
-<main class="wrap">
-  <section class="hero">
+
+<main>
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow" id="eyebrow">CERTIFICATE TRUST MVP</div>
-      <h1 id="heroTitle">Completion is not the same as competence.</h1>
-      <p id="heroDesc">LearnProof helps employers distinguish a learner who completed a course from a learner who demonstrated what they learned. It combines assessment evidence, a structured timed interview, and transparent confidence signals—without pretending that one score proves job performance.</p>
-      <div class="pills"><span class="pill green" id="pill1">Evidence, not just attendance</span><span class="pill" id="pill2">AI-aware, not AI-punitive</span><span class="pill" id="pill3">Built for an MVP</span></div>
+      <span class="eyebrow"><span></span> مفهوم منتج تجريبي من Career-180</span>
+      <h1>شهادتك تثبت إنك <em>أنهيت الكورس.</em><br>فمَن يثبت إنك اتعلمت؟</h1>
+      <p class="hero-copy">
+        LearnProof هو تصور لأداة تساعد على تحويل شهادة إتمام الكورس إلى دليل أوضح على
+        المهارات المكتسبة، من خلال تقييم عملي منظم يقدر الطالب يشاركه مع أصحاب العمل،
+        ويقدر مسؤول التوظيف يفهم نتائجه قبل المقابلة.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="switchTab('student')">اكتشف رحلة الطالب ←</button>
+        <button class="btn btn-light" onclick="switchTab('employer')">جرّب التحقق من شهادة</button>
+      </div>
+      <div class="hero-foot">نموذج أولي لتصور المنتج — النتائج المعروضة تجريبية وليست سجلات حقيقية.</div>
     </div>
-    <aside class="hero-card"><div class="eyebrow" style="color:#9bdcc6" id="cardEyebrow">THE CORE DISTINCTION</div><div class="big" id="cardBig">Completed ≠ Learned</div><p id="cardText">A certificate should communicate what was observed, what was assessed, and what remains unknown.</p></aside>
-  </section>
-  <nav class="nav">
-    <button class="active" data-tab="verify" id="tabVerify">Verify a certificate</button>
-    <button data-tab="interview" id="tabInterview">Timed assessment demo</button>
-    <button data-tab="concept" id="tabConcept">The idea, in detail</button>
-  </nav>
 
-  <section class="panel active" id="verify">
-    <div class="grid">
-      <div class="card">
-        <h2 id="verifyTitle">Partner certificate check</h2>
-        <p class="muted" id="verifyDesc">Enter a sample ID to see the evidence behind the result. These are fictional demonstration records.</p>
-        <form class="field" id="verifyForm"><input id="certId" value="LP-2048" aria-label="Certificate ID" placeholder="e.g. LP-2048"><button class="primary" type="submit" id="checkBtn">Check certificate</button></form>
-        <div class="result show" id="result">
-          <span class="status high" id="resultStatus">Evidence-supported</span>
-          <h3 id="resultName" style="margin-top:12px">Product Analytics Foundations</h3>
-          <p class="muted" id="resultLearner">Learner: Demo Learner · Learning route: Self-directed</p>
-          <div class="split">
-            <div class="metric"><strong id="evidenceScore">82/100</strong><small id="evidenceLabel">Evidence coverage</small></div>
-            <div class="metric"><strong id="assessmentType">Project</strong><small id="assessmentLabel">Assessment type</small></div>
-            <div class="metric"><strong id="courseVersion">v2.0</strong><small id="versionLabel">Course version</small></div>
+    <div class="visual" aria-label="تصور بصري لشهادة ونتائج تقييم">
+      <div class="visual-head">
+        <strong>من الشهادة إلى دليل المهارة</strong>
+        <span class="live-pill">PRODUCT CONCEPT</span>
+      </div>
+      <div class="certificate">
+        <div class="cert-top">
+          <div class="cert-logo">Career-180</div>
+          <div class="seal">✓</div>
+        </div>
+        <div class="cert-title">شهادة إتمام مسار تعليمي</div>
+        <div class="cert-name">محمد أحمد</div>
+        <div class="cert-course">مسار تحليل البيانات — مثال توضيحي</div>
+        <div class="cert-bottom">
+          <div><span>رقم الشهادة</span><strong dir="ltr">LP-2048</strong></div>
+          <div><span>حالة الشهادة</span><strong style="color:#168568">تم التحقق تجريبيًا</strong></div>
+        </div>
+      </div>
+      <div class="score-preview">
+        <div class="score-head"><strong>ملخص دليل المهارة</strong><span class="score-number">82/100</span></div>
+        <div class="mini-bars">
+          <div class="mini-row"><span>المهارات الشخصية</span><div class="bar"><span style="width:86%;background:#16b89a"></span></div><b>86</b></div>
+          <div class="mini-row"><span>المهارات الفنية</span><div class="bar"><span style="width:81%"></span></div><b>81</b></div>
+          <div class="mini-row"><span>أدلة التقييم</span><div class="bar"><span style="width:78%;background:#e9a34f"></span></div><b>78</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-white">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">المشكلة التي نحاول حلها</span>
+      <h2>إتمام الكورس ليس هو نفسه إتقان المهارة</h2>
+      <p class="lead">السوق يحتاج إلى طريقة أفضل لقراءة الشهادات: ليس فقط ماذا درس المرشح، بل ماذا يستطيع أن يفهم ويشرح ويطبّق.</p>
+    </div>
+
+    <div class="problem-grid">
+      <article class="panel soft">
+        <div class="icon-box">🎓</div>
+        <h3>ما الذي تخبرنا به الشهادة التقليدية؟</h3>
+        <p>أن المتعلم أكمل برنامجًا أو مسارًا تعليميًا وفق متطلبات الجهة المقدمة. وهذه معلومة مهمة، لكنها لا تكفي وحدها للحكم على قدرته على أداء وظيفة.</p>
+        <div class="callout">السؤال الذي لا تجيب عنه الشهادة وحدها: هل يستطيع المتعلم تطبيق ما درسه في موقف عملي؟</div>
+      </article>
+
+      <article class="panel">
+        <div class="icon-box">🧭</div>
+        <h3>ما الذي يضيفه LearnProof؟</h3>
+        <p>طبقة تقييم إضافية مرتبطة بالشهادة، تعرض ما إذا كان المتعلم قد خضع لاختبار، وما المهارات التي تم تقييمها، وما النتائج والأدلة المتاحة لكل جانب.</p>
+        <div class="callout green">بدلًا من الاعتماد على الادعاء وحده، يحصل صاحب العمل على معلومات تساعده في طرح أسئلة مقابلة أدق.</div>
+      </article>
+    </div>
+
+    <div class="compare">
+      <div class="compare-card">
+        <h4>شهادة إتمام فقط</h4>
+        <ul>
+          <li>المسار الذي أتمه المتعلم.</li>
+          <li>بيانات الشهادة وحالتها.</li>
+          <li>لا توجد نتيجة تقييم مهارات من LearnProof.</li>
+        </ul>
+      </div>
+      <div class="compare-card good">
+        <h4>شهادة + تقييم LearnProof</h4>
+        <ul>
+          <li>بيانات الشهادة وحالة التحقق.</li>
+          <li>نتائج التقييم في المجالات الثلاثة.</li>
+          <li>ملخص الأدلة ونقاط القوة والجوانب التي تحتاج إلى مراجعة.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="experience">
+<div class="wrap">
+  <div class="section-head">
+    <span class="kicker">ثلاث واجهات في تجربة واحدة</span>
+    <h2>كل طرف يرى المعلومات التي يحتاج إليها</h2>
+    <p class="lead">اختر أحد التبويبات لاستكشاف رحلة المستخدم. يمكنك التنقل بينها في أي وقت.</p>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tabs" role="tablist" aria-label="واجهات LearnProof">
+      <button class="tab" id="tab-about" role="tab" aria-selected="true" aria-controls="panel-about" onclick="switchTab('about')">1. الفكرة وطريقة العمل</button>
+      <button class="tab" id="tab-student" role="tab" aria-selected="false" aria-controls="panel-student" onclick="switchTab('student')">2. واجهة الطالب</button>
+      <button class="tab" id="tab-employer" role="tab" aria-selected="false" aria-controls="panel-employer" onclick="switchTab('employer')">3. واجهة صاحب العمل</button>
+    </div>
+
+    <section class="tab-panel active" id="panel-about" role="tabpanel" aria-labelledby="tab-about">
+      <div class="feature-grid">
+        <article class="panel">
+          <div class="card-title"><h3>كيف تعمل الفكرة؟</h3><span class="tag">PRODUCT FLOW</span></div>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><h4>إتمام المسار التعليمي</h4><p>ينهي الطالب الكورس ويحصل على شهادته من الجهة التعليمية.</p></div></div>
+            <div class="step"><div class="step-num">02</div><div><h4>اختبار اختياري لإثبات المهارات</h4><p>يدخل الطالب جلسة تقييم منظمة ومحددة بوقت، ومحتواها مرتبط بتخصصه.</p></div></div>
+            <div class="step"><div class="step-num">03</div><div><h4>إعداد ملف نتائج واضح</h4><p>تُعرض المهارات التي تم تقييمها، والنتائج، وحدود ما يمكن استنتاجه منها.</p></div></div>
+            <div class="step"><div class="step-num">04</div><div><h4>مشاركة النتيجة مع صاحب العمل</h4><p>يبحث مسؤول التوظيف برقم الشهادة ويطّلع على الأدلة المتاحة بموافقة المتعلم ووفق سياسة الخصوصية.</p></div></div>
           </div>
-          <h3 style="margin-top:20px" id="evidenceTitle">Evidence behind the result</h3>
-          <div id="evidenceRows"></div>
-          <div class="notice" id="resultNote">This signal reflects the evidence available for this certificate; it is not a guarantee of job performance.</div>
+        </article>
+
+        <article class="panel dark">
+          <div class="icon-box">🔎</div>
+          <h3>ماذا تعني نتيجة التحقق؟</h3>
+          <p>يجب أن يفصل المنتج بوضوح بين ثلاثة أمور مختلفة حتى لا نبالغ في دلالة الشهادة أو النتيجة.</p>
+          <div class="steps">
+            <div class="step"><div class="step-num">A</div><div><h4>التحقق من الشهادة</h4><p>هل رقم الشهادة موجود وصالح وفق سجلات الجهة المصدرة؟</p></div></div>
+            <div class="step"><div class="step-num">B</div><div><h4>إثبات إجراء التقييم</h4><p>هل أكمل المتعلم تقييم LearnProof؟ وما الأجزاء التي أكملها؟</p></div></div>
+            <div class="step"><div class="step-num">C</div><div><h4>فهم مستوى الأداء</h4><p>ما النتائج والأدلة المتاحة، وما الجوانب التي ما زالت تحتاج إلى مقابلة أو مراجعة؟</p></div></div>
+          </div>
+          <div class="callout" style="background:#ffffff0c;border-color:#ffffff22;color:#e3eaf6">وجود شهادة صحيحة لا يعني تلقائيًا اجتياز التقييم، واجتياز التقييم لا يعني ضمان التوظيف.</div>
+        </article>
+      </div>
+
+      <div class="panel" style="margin-top:22px">
+        <div class="card-title"><h3>كيف يتم تقييم المهارات؟</h3><span class="tag">30 دقيقة — تصور مقترح</span></div>
+        <div class="problem-grid">
+          <div>
+            <div class="step"><div class="step-num">1</div><div><h4>المهارات الشخصية والخبرات العامة</h4><p>أسئلة عن التواصل، حل المشكلات، التفكير المنطقي، الخبرات السابقة، والتعامل مع مواقف العمل.</p></div></div>
+          </div>
+          <div>
+            <div class="step"><div class="step-num">2</div><div><h4>التقييم الفني — الجزء الأول</h4><p>أسئلة مرتبطة بالمفاهيم الأساسية في التخصص الذي يغطيه الكورس أو الشهادة.</p></div></div>
+          </div>
+          <div>
+            <div class="step"><div class="step-num">3</div><div><h4>التقييم الفني — الجزء الثاني</h4><p>حالة عملية أو أسئلة تطبيقية تكشف قدرة المتعلم على شرح قراراته وتطبيق ما يعرفه.</p></div></div>
+          </div>
+          <div>
+            <div class="step"><div class="step-num">✓</div><div><h4>تقرير النتائج</h4><p>درجات منفصلة للمهارات الشخصية والفنية، مع مراجعة أدلة التقييم ومؤشرات المساعدة الخارجية عند توفرها.</p></div></div>
+          </div>
         </div>
       </div>
-      <div class="card">
-        <h2 id="howTitle">How to interpret the signal</h2>
-        <div class="steps" style="grid-template-columns:1fr">
-          <div class="step"><b id="highTitle">Evidence-supported</b><span class="muted" id="highText">A meaningful assessment exists and the result is recorded and attributable.</span></div>
-          <div class="step"><b id="limitedTitle">Completion only / limited evidence</b><span class="muted" id="limitedText">The course was completed, but evidence of competence is absent or weak.</span></div>
-          <div class="step"><b id="reviewTitle">Needs review</b><span class="muted" id="reviewText">The record is missing, inconsistent, disputed, or tied to a changed course standard.</span></div>
+
+      <div class="callout amber">
+        <strong>الخصوصية والنزاهة:</strong>
+        يمكن تصميم جلسة مستقبلية تتطلب مشاركة الشاشة بموافقة صريحة، دون تشغيل الكاميرا. لكن مشاركة الشاشة أو بيانات المتصفح لا تثبت وحدها استخدام AI. لذلك ينبغي عرض أي مؤشرات مساعدة كأدلة محدودة تحتاج إلى تفسير، وليس كحكم قطعي على المتقدم.
+      </div>
+    </section>
+
+    <section class="tab-panel" id="panel-student" role="tabpanel" aria-labelledby="tab-student">
+      <div class="feature-grid">
+        <article class="student-hero">
+          <span class="tag">للطلاب والخريجين</span>
+          <h3>أنت أنهيت الكورس.<br>دلوقتي خلّي مهاراتك تتكلم عنك.</h3>
+          <p>شهادتك خطوة مهمة. ومن خلال تقييم LearnProof المقترح، تقدر تضيف دليلًا على ما تعلمته وتمنح أصحاب العمل صورة أوضح عن قدراتك.</p>
+          <div class="benefit-list">
+            <div class="benefit"><span class="check">✓</span><span>اختبار منظم مدته 30 دقيقة.</span></div>
+            <div class="benefit"><span class="check">✓</span><span>تقييم للمهارات الشخصية والفنية، كلٌّ على حدة.</span></div>
+            <div class="benefit"><span class="check">✓</span><span>ملخص نتائج قابل للمشاركة مع أصحاب العمل وفق إعدادات الخصوصية.</span></div>
+            <div class="benefit"><span class="check">✓</span><span>فرصة لإظهار فهمك وتفكيرك، وليس مجرد إتمام المحتوى.</span></div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:25px" onclick="document.getElementById('assessment-demo').scrollIntoView({behavior:'smooth',block:'center'})">جرّب شكل الاختبار ↓</button>
+        </article>
+
+        <article class="panel">
+          <div class="card-title"><h3>رحلة الطالب</h3><span class="tag">4 خطوات</span></div>
+          <div class="steps">
+            <div class="step"><div class="step-num">01</div><div><h4>أدخل بيانات الشهادة</h4><p>يربط الطالب حسابه بالشهادة التي حصل عليها، بعد التحقق من بياناتها.</p></div></div>
+            <div class="step"><div class="step-num">02</div><div><h4>راجع تعليمات التقييم</h4><p>يعرف مدة الاختبار، أنواع الأسئلة، سياسة استخدام الأدوات المساعدة، وكيفية التعامل مع بياناته.</p></div></div>
+            <div class="step"><div class="step-num">03</div><div><h4>أكمل الأجزاء الثلاثة</h4><p>يجيب عن الأسئلة ويشرح خطوات تفكيره ضمن جلسة محددة المدة.</p></div></div>
+            <div class="step"><div class="step-num">04</div><div><h4>راجع النتيجة وشاركها</h4><p>يحصل على تقرير يوضح المجالات التي تم تقييمها ونتائجه والأدلة المتاحة.</p></div></div>
+          </div>
+          <div class="callout green">الهدف ليس ضمان وظيفة، بل منح المتعلم طريقة إضافية لإظهار ما يستطيع فعله.</div>
+        </article>
+      </div>
+
+      <div class="assessment" id="assessment-demo" style="margin-top:22px">
+        <div class="assess-top">
+          <div><span class="tag">DEMO — اختبار تجريبي</span><h3 style="margin:8px 0 0">جلسة تقييم LearnProof</h3></div>
+          <div class="clock" id="clock">30:00</div>
         </div>
-        <p class="notice" id="fairnessNote">AI use is not automatically misconduct. The assessment considers the learner's explanation, application, and ability to defend their work—not a guess that AI was used.</p>
-      </div>
-    </div>
-  </section>
+        <p class="small-note">في المنتج المقترح، يبدأ التوقيت عند بدء الجلسة الفعلية. هذا النموذج يحاكي التوقيت والتنقل فقط، ولا يفرض قيودًا أمنية حقيقية.</p>
+        <div class="progress"><span id="time-progress"></span></div>
+        <div class="part-list">
+          <div class="part"><div class="part-icon">💬</div><div><strong>القسم الأول: المهارات الشخصية والخبرات</strong><small>التواصل، حل المشكلات، ومواقف العمل</small></div><time>8 دقائق</time></div>
+          <div class="part"><div class="part-icon">🧠</div><div><strong>القسم الثاني: المفاهيم الفنية</strong><small>فهم الأساسيات المرتبطة بالتخصص</small></div><time>10 دقائق</time></div>
+          <div class="part"><div class="part-icon">🛠️</div><div><strong>القسم الثالث: التطبيق العملي</strong><small>حالة عملية وشرح طريقة التفكير</small></div><time>12 دقيقة</time></div>
+        </div>
 
-  <section class="panel" id="interview">
-    <div class="interview-layout">
-      <div class="card">
-        <h2 id="demoTitle">Timed interview — demo</h2>
-        <p class="muted" id="demoDesc">A clickable prototype of the proposed assessment flow. Timer and answers run locally in this browser only.</p>
-        <div class="timer" id="timer">12:00</div>
-        <div class="progress"><span id="progressBar"></span></div>
-        <p class="muted"><span id="qCount">Question 1 of 3</span></p>
-        <div class="tagrow"><span class="tag" id="tag1">Section 1 · Work readiness</span><span class="tag" id="tag2">Section 2 · Core knowledge</span><span class="tag" id="tag3">Section 3 · Applied reasoning</span></div>
-        <label class="consent"><input type="checkbox" id="screenConsent"><span id="screenConsentText">I understand that a real assessment may request screen sharing, with clear consent and a visible indicator. This demo does not access or record my screen.</span></label>
-        <label class="consent"><input type="checkbox" id="integrityConsent"><span id="integrityConsentText">I understand the assessment rules and will disclose tools I used when asked. AI assistance itself is not automatically a negative signal.</span></label>
-        <button class="primary" id="startBtn" type="button">Start demo</button>
-        <button class="secondary hidden" id="nextBtn" type="button">Save answer & next</button>
-        <p class="notice" id="demoNotice">Prototype limitation: two-open link limits, browser enforcement, secure identity checks, real screen capture, and server-side scoring are not implemented here.</p>
-      </div>
-      <div class="card">
-        <div class="eyebrow" id="sectionEyebrow">SECTION 1 OF 3</div>
-        <div class="question" id="question">Tell us about a time you received feedback and changed your approach. What did you do, and what changed?</div>
-        <p class="muted" id="questionHint">Answer as you would in a real interview. The objective is to observe reasoning and clarity, not memorized wording.</p>
-        <textarea class="answer" id="answer" placeholder="Write your answer here..." disabled></textarea>
-        <div id="endMessage" class="notice hidden"></div>
-      </div>
-    </div>
-  </section>
+        <div id="attempt-info" class="callout">المحاولات في هذا النموذج تجريبية ومحلية، ولا تمثل نظامًا حقيقيًا لإدارة المحاولات.</div>
 
-  <section class="panel" id="concept">
-    <div class="card">
-      <div class="eyebrow" id="conceptEyebrow">PROBLEM → DESIGN → TRUST</div>
-      <h2 id="conceptTitle">Distinguish course completion from demonstrated learning.</h2>
-      <p class="muted" id="conceptIntro">The product should not force every course into the same assessment model. It should show partners the strength and limits of the evidence available, then offer a consistent, structured way to collect more evidence where needed.</p>
-      <div class="steps">
-        <div class="step"><b id="c1title">1. Completion record</b><span class="muted" id="c1text">Confirms the learner met the platform's existing completion rule. It does not, by itself, prove competence.</span></div>
-        <div class="step"><b id="c2title">2. Evidence layer</b><span class="muted" id="c2text">Connects quiz results, proctored exams, projects, and a structured timed interview to the certificate.</span></div>
-        <div class="step"><b id="c3title">3. Trust outcome</b><span class="muted" id="c3text">Communicates evidence strength, gaps, course version, and review status instead of presenting a binary badge as certainty.</span></div>
+        <div id="question-area" hidden>
+          <div class="card-title"><h3 id="question-title">القسم الأول</h3><span class="tag" id="question-count">1 من 3</span></div>
+          <p id="question-text"></p>
+          <textarea id="answer" placeholder="اكتب إجابتك هنا..."></textarea>
+          <div class="assess-actions">
+            <button class="btn btn-light" onclick="resetAssessment()">إعادة التجربة</button>
+            <button class="btn btn-primary" id="next-question" onclick="nextQuestion()">حفظ الإجابة والانتقال ←</button>
+          </div>
+        </div>
+
+        <div class="assess-actions" id="start-area">
+          <button class="btn btn-primary" onclick="startAssessment()">ابدأ المحاكاة التجريبية ←</button>
+          <span class="small-note">لن تُرسل إجاباتك إلى خادم ولن تُحفظ بعد إغلاق الصفحة.</span>
+        </div>
+        <div id="demo-result" hidden>
+          <div class="callout green"><strong>انتهت المحاكاة.</strong><br>في المنتج الحقيقي، ستخضع الإجابات لمعايير تقييم محددة وتُعرض النتائج مع توضيح حدودها. لا يتم احتساب درجة حقيقية في هذا النموذج.</div>
+          <button class="btn btn-primary" onclick="resetAssessment()">جرّب من جديد</button>
+        </div>
       </div>
-      <h2 style="margin-top:28px" id="rulesTitle">Product rules</h2>
-      <ul class="list" id="rulesList">
-        <li>Courses with no assessment receive a completion-only / limited-evidence outcome—not a competence claim.</li>
-        <li>Existing certificates are not silently revoked. They retain their historical completion status and can be labeled “legacy — evidence not assessed under the current standard.”</li>
-        <li>Revised courses get versioned standards. Old certificates are evaluated against the version completed, not automatically against a new curriculum.</li>
-        <li>Corporate learners use the same evidence rules. Lower engagement is not itself proof of poor learning; account context is disclosed separately.</li>
-        <li>Screen sharing, if used in a real deployment, requires explicit consent, a clear explanation, minimum necessary collection, and an alternative review path. The prototype does not capture a screen.</li>
-        <li>AI usage is evaluated by disclosure, understanding, attribution, and ability to explain or adapt the answer—not by treating all AI assistance as cheating.</li>
-        <li>Scores are decision support, not a guarantee of workplace performance. Employers should combine evidence with role-relevant interviews or work samples.</li>
-      </ul>
-      <h2 style="margin-top:28px" id="flowTitle">Proposed candidate flow</h2>
-      <div class="steps">
-        <div class="step"><b id="f1title">1. Identity & rules</b><span class="muted" id="f1text">Open a time-limited link, check browser/session rules, explain permitted tools, and obtain consent.</span></div>
-        <div class="step"><b id="f2title">2. Three sections</b><span class="muted" id="f2text">Section 1: soft skills and work experience. Sections 2–3: specialty knowledge and applied scenarios.</span></div>
-        <div class="step"><b id="f3title">3. Transparent scorecard</b><span class="muted" id="f3text">Report soft skills, technical evidence, and answer reliability/tool-dependence separately, with evidence and reviewer notes.</span></div>
+
+      <div class="disclaimer">ملاحظة: لا يتم طلب الكاميرا في هذا النموذج. مشاركة الشاشة، وتأكيد الهوية، والحد الحقيقي للمحاولات، وتسجيل الأدلة، والتقييم الآلي أو البشري ليست مفعّلة هنا.</div>
+    </section>
+
+    <section class="tab-panel" id="panel-employer" role="tabpanel" aria-labelledby="tab-employer">
+      <div class="section-head">
+        <span class="kicker">بوابة أصحاب الأعمال</span>
+        <h2 style="font-size:30px">تحقّق من الشهادة. افهم مستوى المرشح. استعد للمقابلة.</h2>
+        <p class="lead">ابحث برقم الشهادة للاطلاع على حالة الشهادة، وهل أكمل صاحبها تقييم LearnProof، وما نتائج التقييم المتاحة.</p>
       </div>
-      <div class="notice" id="mvpNotice"><b>MVP boundary:</b> Start with certificate verification, evidence mapping, 3-section timed assessment, reviewer rubric, and a partner-facing result. Defer full LMS integration, automated proctoring, and high-confidence AI detection. Browser and AI-detection signals are imperfect and should never be presented as proof by themselves.</div>
+
+      <div class="business-grid">
+        <article class="panel">
+          <div class="icon-box">🔍</div>
+          <h3>البحث عن شهادة</h3>
+          <p>أدخل رقمًا تجريبيًا لعرض طريقة عمل واجهة البحث. هذه البيانات أمثلة توضيحية وليست سجلات فعلية من Career-180.</p>
+          <form class="search-box" onsubmit="searchCertificate(event)">
+            <input id="certificate-id" aria-label="رقم الشهادة" placeholder="مثال: LP-2048" autocomplete="off" required>
+            <button class="btn btn-primary" type="submit">تحقّق</button>
+          </form>
+          <div class="example-ids">
+            <button class="example-id" onclick="useExample('LP-2048')">LP-2048</button>
+            <button class="example-id" onclick="useExample('LP-1051')">LP-1051</button>
+            <button class="example-id" onclick="useExample('LP-3320')">LP-3320</button>
+          </div>
+          <div class="toast" id="search-message" role="status" aria-live="polite"></div>
+          <div class="callout">في النسخة الحقيقية، ينبغي ألا تظهر بيانات شخصية أو نتائج تقييم إلا وفق صلاحيات وصول وموافقة واضحة من صاحب الشهادة.</div>
+        </article>
+
+        <article class="panel">
+          <div id="empty-profile" class="empty-state">
+            <div class="icon-box">📄</div>
+            <h3>نتيجة التحقق ستظهر هنا</h3>
+            <p>اختر أحد الأرقام التجريبية أو أدخل رقمًا للبحث.</p>
+          </div>
+
+          <div class="profile" id="profile">
+            <div class="profile-top">
+              <div class="profile-person">
+                <div class="avatar" id="candidate-avatar">م</div>
+                <div>
+                  <h3 id="candidate-name">محمد أحمد</h3>
+                  <p id="candidate-path">مسار تحليل البيانات</p>
+                  <p>رقم الشهادة: <strong id="candidate-id" dir="ltr">LP-2048</strong></p>
+                </div>
+              </div>
+              <div class="score-circle" id="overall-score">82</div>
+            </div>
+
+            <div class="data-grid">
+              <div class="data-cell"><span>حالة الشهادة</span><strong id="certificate-status">تم التحقق تجريبيًا</strong></div>
+              <div class="data-cell"><span>حالة LearnProof</span><strong id="assessment-status">أكمل التقييم التجريبي</strong></div>
+              <div class="data-cell"><span>تاريخ التقييم</span><strong id="assessment-date">2026/10/20 — مثال</strong></div>
+              <div class="data-cell"><span>مستوى الأدلة</span><strong id="evidence-status">أدلة تجريبية متاحة</strong></div>
+            </div>
+
+            <div id="assessment-details">
+              <h3 style="font-size:16px">ملخص نتائج المهارات</h3>
+              <div class="level"><span>المهارات الشخصية</span><div class="bar"><span id="soft-bar" style="width:86%;background:#16b89a"></span></div><b id="soft-score">86/100</b></div>
+              <div class="level"><span>المهارات الفنية</span><div class="bar"><span id="technical-bar" style="width:81%"></span></div><b id="technical-score">81/100</b></div>
+              <div class="level"><span>مراجعة أدلة الإجابات</span><div class="bar"><span id="evidence-bar" style="width:78%;background:#e9a34f"></span></div><b id="evidence-score">78/100</b></div>
+              <div class="callout green" id="employer-summary">يمتلك المرشح نتائج تجريبية يمكن استخدامها لتوجيه أسئلة المقابلة إلى نقاط القوة والجوانب التي تحتاج إلى استيضاح.</div>
+            </div>
+
+            <div id="completion-only" hidden class="callout amber">
+              هذا المثال يوضح حالة شهادة دون تقييم LearnProof. لا تتوفر درجات مهارات، ولا ينبغي استنتاجها من إتمام الكورس وحده.
+            </div>
+
+            <p class="small-note">كل النتائج المعروضة محاكاة توضيحية. لا تمثل تقييمًا حقيقيًا لشخص، ولا تضمن الأداء الوظيفي أو قرار التوظيف.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="problem-grid" style="margin-top:22px">
+        <article class="panel">
+          <div class="icon-box">⏱️</div>
+          <h3>كيف يساعد فرق التوظيف؟</h3>
+          <p>يمنح مسؤول التوظيف ملخصًا موحدًا قبل المقابلة، ويساعده على تحديد الأسئلة الفنية والسلوكية بناءً على الأدلة المتاحة، بدل الاعتماد على السيرة الذاتية والشهادة فقط.</p>
+        </article>
+        <article class="panel">
+          <div class="icon-box">🤝</div>
+          <h3>مقابلة أكثر تركيزًا، لا وعود مبالغ فيها</h3>
+          <p>يمكن أن يقلل LearnProof الوقت اللازم لفهم خلفية المرشح، لكنه لا يستبدل بالضرورة المقابلة النهائية أو التحقق من الخبرات والمراجع. قرار التوظيف يظل بيد الشركة.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+</div>
+</section>
+
+<section class="section section-white">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">النزاهة والثقة</span>
+      <h2>كيف نتعامل مع استخدام الذكاء الاصطناعي؟</h2>
+      <p class="lead">الهدف هو تقييم فهم المتعلم وقدرته على التطبيق، وليس افتراض أن كل استخدام لأداة مساعدة يعني الغش.</p>
     </div>
-  </section>
-  <footer class="foot"><span id="footerLeft">LearnProof · Concept prototype for Career-180 Quest #90</span><span id="footerRight">Demo records are fictional · Not a production verification service</span></footer>
+    <div class="problem-grid">
+      <article class="panel">
+        <div class="icon-box">🧠</div>
+        <h3>الفهم أهم من مجرد الإجابة</h3>
+        <p>يمكن أن يتضمن التقييم أسئلة متابعة، وشرحًا لخطوات التفكير، ومهامًا تطبيقية، ومقارنة الإجابة بالمعايير المحددة. هذا يساعد على تقييم عمق الفهم بشكل أفضل.</p>
+      </article>
+      <article class="panel">
+        <div class="icon-box">🛡️</div>
+        <h3>الشفافية قبل المراقبة</h3>
+        <p>أي مشاركة للشاشة أو جمع لبيانات الجلسة يجب أن يكون بموافقة صريحة، وشرح واضح للغرض، وسياسة احتفاظ وحذف. ولا يجوز تقديم مؤشرات غير مؤكدة على أنها دليل قاطع.</p>
+      </article>
+    </div>
+    <div class="callout amber">
+      <strong>حدود تقنية مهمة:</strong> صفحة HTML وحدها لا تستطيع فرض صلاحية رابط على مستوى الخادم، أو ضمان فتحه مرتين فقط عبر جميع المتصفحات والأجهزة، أو تحديد المتصفح بشكل موثوق، أو إثبات استخدام AI من خلال مشاركة الشاشة. هذه وظائف تحتاج إلى بنية خلفية آمنة، وصلاحيات واضحة، وتصميم تقني واختبارات مستقلة.
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="panel dark" style="padding:clamp(25px,5vw,48px)">
+      <span class="eyebrow">الخطوة التالية</span>
+      <h2>ابدأ بإثبات المهارة، ثم ابنِ الثقة بالبيانات.</h2>
+      <p style="color:#c4cddd;max-width:750px">
+        يمكن بدء اختبار الفكرة مع مجموعة صغيرة من المتعلمين وأصحاب العمل، ثم قياس مدى وضوح النتائج، ومدى توافق التقييم مع أداء المرشحين في المقابلات والمهام العملية. بهذه الطريقة تتطور LearnProof بناءً على أدلة، لا افتراضات.
+      </p>
+      <button class="btn btn-primary" onclick="switchTab('employer')">استكشف تجربة صاحب العمل ←</button>
+    </div>
+  </div>
+</section>
 </main>
+
+<footer class="footer">
+  <div class="wrap footer-row">
+    <div class="brand"><span class="brand-icon">✓</span><span>LearnProof<small>PRODUCT CONCEPT BY CAREER-180</small></span></div>
+    <div><strong>من إتمام الكورس إلى إثبات المهارة</strong><p>نموذج أولي لاستكشاف تجربة التحقق من الشهادات وتقييم المهارات.</p></div>
+  </div>
+</footer>
+
 <script>
-const records={
- "LP-2048":{name:"Product Analytics Foundations",learner:"Demo Learner",route:"Self-directed",score:82,type:"Project",version:"v2.0",status:"high",items:[["Project rubric","Passed · 82/100"],["Identity / attribution","Recorded"],["Course version","v2.0 · current standard"],["AI/tool disclosure","Declared · oral defense consistent"]],note:"Evidence supports demonstrated capability within the project rubric. It does not guarantee job performance."},
- "LP-1051":{name:"Introduction to Digital Marketing",learner:"Corporate learner",route:"Corporate cohort",score:18,type:"No assessment",version:"v1.0",status:"limited",items:[["Completion","Recorded"],["Knowledge assessment","Not available"],["Engagement context","Corporate cohort · interpret cautiously"],["Trust interpretation","Completion confirmed; competence not verified"]],note:"This record confirms completion only. Do not describe it as verified competence without additional assessment."},
- "LP-3320":{name:"SQL for Business",learner:"Demo Learner",route:"Self-directed",score:68,type:"Auto-graded quiz",version:"v1.0 → v2.0",status:"limited",items:[["Quiz result","68% · auto-graded"],["Proctoring / identity","Not recorded"],["Course revision","Course updated after issuance"],["Trust interpretation","Valid historical certificate; new standard not retroactively applied"]],note:"The certificate remains valid as a historical completion record. Current-standard equivalence has not been established."},
- "LP-7788":{name:"Cybersecurity Essentials",learner:"Corporate learner",route:"Corporate cohort",score:94,type:"Proctored exam",version:"v3.1",status:"high",items:[["Proctored exam","Passed · 94/100"],["Identity check","Recorded"],["Course version","v3.1"],["Review flags","None in demo record"]],note:"Strong assessment evidence is available. Employers should still validate relevance to their role."},
- "LP-0000":null
+const tabNames = ["about", "student", "employer"];
+
+function switchTab(name) {
+  if (!tabNames.includes(name)) return;
+  tabNames.forEach(key => {
+    const panel = document.getElementById("panel-" + key);
+    const tab = document.getElementById("tab-" + key);
+    panel.classList.toggle("active", key === name);
+    tab.setAttribute("aria-selected", key === name ? "true" : "false");
+  });
+  document.getElementById("experience").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+// بيانات وهمية لتوضيح شكل المنتج فقط.
+// لا تستخدم بيانات أشخاص حقيقية.
+const demoCertificates = {
+  "LP-2048": {
+    name:"محمد أحمد",
+    path:"مسار تحليل البيانات",
+    status:"تم التحقق تجريبيًا",
+    assessment:"أكمل التقييم التجريبي",
+    date:"2026/10/20 — مثال",
+    evidence:"أدلة تجريبية متاحة",
+    overall:82, soft:86, technical:81, evidenceScore:78,
+    summary:"أظهرت المحاكاة نتائج في المهارات الشخصية والفنية. في المنتج الحقيقي، يجب مراجعة الإجابات والأدلة قبل استخدام النتيجة في قرار توظيف."
+  },
+  "LP-1051": {
+    name:"سارة محمود",
+    path:"مسار إدارة المنتجات",
+    status:"تم التحقق تجريبيًا",
+    assessment:"الشهادة فقط — دون تقييم",
+    date:"لم يُجرَ تقييم",
+    evidence:"لا توجد أدلة تقييم",
+    overall:null, soft:null, technical:null, evidenceScore:null,
+    summary:""
+  },
+  "LP-3320": {
+    name:"عمر خالد",
+    path:"مسار تطوير الويب",
+    status:"تم التحقق تجريبيًا",
+    assessment:"أكمل التقييم التجريبي",
+    date:"2026/10/22 — مثال",
+    evidence:"أدلة تجريبية متاحة",
+    overall:74, soft:80, technical:72, evidenceScore:68,
+    summary:"توضح هذه النتيجة التجريبية كيف يمكن عرض جوانب القوة ومجالات تحتاج إلى أسئلة متابعة. الدرجة ليست ضمانًا للكفاءة الوظيفية."
+  }
 };
-let lang="en", running=false, seconds=720, timerId=null, qi=0, answers=[];
-const qs={
- en:[
- {section:"SECTION 1 OF 3",tag:"Work readiness",q:"Tell us about a time you received feedback and changed your approach. What did you do, and what changed?",hint:"Look for ownership, reflection, communication, and a concrete outcome."},
- {section:"SECTION 2 OF 3",tag:"Core knowledge",q:"Explain the most important concept from your course in your own words. What is a common mistake people make with it?",hint:"Look for accurate understanding rather than copied definitions."},
- {section:"SECTION 3 OF 3",tag:"Applied reasoning",q:"Here is a realistic work scenario related to your specialty. How would you solve it, what trade-offs would you consider, and how would you test your answer?",hint:"Look for application, assumptions, trade-offs, and ability to defend decisions."}
- ],
- ar:[
- {section:"القسم الأول من 3",tag:"الاستعداد للعمل",q:"احكي عن موقف تلقيت فيه ملاحظات غيّرت طريقة عملك. عملت إيه، وإيه اللي اتغير؟",hint:"نبحث عن تحمّل المسؤولية والتعلّم والتواصل ونتيجة واضحة."},
- {section:"القسم الثاني من 3",tag:"المعرفة الأساسية",q:"اشرح أهم مفهوم تعلمته في الكورس بأسلوبك. وإيه الخطأ الشائع اللي الناس بتقع فيه عند استخدامه؟",hint:"نبحث عن فهم حقيقي، مش تعريف محفوظ."},
- {section:"القسم الثالث من 3",tag:"التطبيق العملي",q:"قدامك موقف عملي متعلق بتخصصك. هتحله إزاي؟ وإيه المفاضلات اللي هتراعيها، وهتختبر إجابتك إزاي؟",hint:"نبحث عن التطبيق والافتراضات والمفاضلات والقدرة على الدفاع عن القرار."}
- ]};
-const copy={
- en:{top:"Evidence-based learning verification",eyebrow:"CERTIFICATE TRUST MVP",heroTitle:"Completion is not the same as competence.",heroDesc:"LearnProof helps employers distinguish a learner who completed a course from a learner who demonstrated what they learned. It combines assessment evidence, a structured timed interview, and transparent confidence signals—without pretending that one score proves job performance.",pill1:"Evidence, not just attendance",pill2:"AI-aware, not AI-punitive",pill3:"Built for an MVP",cardEyebrow:"THE CORE DISTINCTION",cardBig:"Completed ≠ Learned",cardText:"A certificate should communicate what was observed, what was assessed, and what remains unknown.",tabVerify:"Verify a certificate",tabInterview:"Timed assessment demo",tabConcept:"The idea, in detail",verifyTitle:"Partner certificate check",verifyDesc:"Enter a sample ID to see the evidence behind the result. These are fictional demonstration records.",checkBtn:"Check certificate",howTitle:"How to interpret the signal",highTitle:"Evidence-supported",highText:"A meaningful assessment exists and the result is recorded and attributable.",limitedTitle:"Completion only / limited evidence",limitedText:"The course was completed, but evidence of competence is absent or weak.",reviewTitle:"Needs review",reviewText:"The record is missing, inconsistent, disputed, or tied to a changed course standard.",fairnessNote:"AI use is not automatically misconduct. The assessment considers the learner's explanation, application, and ability to defend their work—not a guess that AI was used.",demoTitle:"Timed interview — demo",demoDesc:"A clickable prototype of the proposed assessment flow. Timer and answers run locally in this browser only.",screenConsentText:"I understand that a real assessment may request screen sharing, with clear consent and a visible indicator. This demo does not access or record my screen.",integrityConsentText:"I understand the assessment rules and will disclose tools I used when asked. AI assistance itself is not automatically a negative signal.",startBtn:"Start demo",nextBtn:"Save answer & next",demoNotice:"Prototype limitation: two-open link limits, browser enforcement, secure identity checks, real screen capture, and server-side scoring are not implemented here.",sectionEyebrow:"SECTION 1 OF 3",questionHint:"Answer as you would in a real interview. The objective is to observe reasoning and clarity, not memorized wording.",conceptEyebrow:"PROBLEM → DESIGN → TRUST",conceptTitle:"Distinguish course completion from demonstrated learning.",conceptIntro:"The product should not force every course into the same assessment model. It should show partners the strength and limits of the evidence available, then offer a consistent, structured way to collect more evidence where needed.",c1title:"1. Completion record",c1text:"Confirms the learner met the platform's existing completion rule. It does not, by itself, prove competence.",c2title:"2. Evidence layer",c2text:"Connects quiz results, proctored exams, projects, and a structured timed interview to the certificate.",c3title:"3. Trust outcome",c3text:"Communicates evidence strength, gaps, course version, and review status instead of presenting a binary badge as certainty.",rulesTitle:"Product rules",rulesList:["Courses with no assessment receive a completion-only / limited-evidence outcome—not a competence claim.","Existing certificates are not silently revoked. They retain their historical completion status and can be labeled “legacy — evidence not assessed under the current standard.”","Revised courses get versioned standards. Old certificates are evaluated against the version completed, not automatically against a new curriculum.","Corporate learners use the same evidence rules. Lower engagement is not itself proof of poor learning; account context is disclosed separately.","Screen sharing, if used in a real deployment, requires explicit consent, a clear explanation, minimum necessary collection, and an alternative review path. The prototype does not capture a screen.","AI usage is evaluated by disclosure, understanding, attribution, and ability to explain or adapt the answer—not by treating all AI assistance as cheating.","Scores are decision support, not a guarantee of workplace performance. Employers should combine evidence with role-relevant interviews or work samples."],flowTitle:"Proposed candidate flow",f1title:"1. Identity & rules",f1text:"Open a time-limited link, check browser/session rules, explain permitted tools, and obtain consent.",f2title:"2. Three sections",f2text:"Section 1: soft skills and work experience. Sections 2–3: specialty knowledge and applied scenarios.",f3title:"3. Transparent scorecard",f3text:"Report soft skills, technical evidence, and answer reliability/tool-dependence separately, with evidence and reviewer notes.",mvpNotice:"MVP boundary: Start with certificate verification, evidence mapping, 3-section timed assessment, reviewer rubric, and a partner-facing result. Defer full LMS integration, automated proctoring, and high-confidence AI detection. Browser and AI-detection signals are imperfect and should never be presented as proof by themselves.",footerLeft:"LearnProof · Concept prototype for Career-180 Quest #90",footerRight:"Demo records are fictional · Not a production verification service",evidenceLabel:"Evidence coverage",assessmentLabel:"Assessment type",versionLabel:"Course version",evidenceTitle:"Evidence behind the result",resultNote:"This signal reflects the evidence available for this certificate; it is not a guarantee of job performance.",learner:"Learner",route:"Learning route",completion:"Completion",assessment:"Assessment",identity:"Identity / attribution",version:"Course version",toolUse:"AI/tool disclosure",notFound:"No sample record found. Try LP-2048, LP-1051, LP-3320, or LP-7788.",started:"Demo started. The timer is running.",needConsent:"Please accept both assessment notices before starting.",done:"Demo complete. Your responses stayed in this browser and were not sent to a server.",timeUp:"Time is up. Demo complete.",question:"Question",of:"of",placeholder:"Write your answer here..."},
- ar:{top:"التحقق من التعلّم بالأدلة",eyebrow:"نموذج أولي للتحقق من الشهادات",heroTitle:"إتمام الكورس مش معناه إن الشخص أتقنه.",heroDesc:"يساعد LearnProof أصحاب العمل على التمييز بين شخص أتم الكورس وشخص أثبت ما تعلّمه. يجمع بين أدلة التقييم ومقابلة منظمة محددة بوقت وإشارات ثقة واضحة، من غير ادعاء أن درجة واحدة تضمن الأداء الوظيفي.",pill1:"أدلة مش مجرد حضور",pill2:"يفهم استخدام AI من غير عقاب تلقائي",pill3:"مناسب كبداية MVP",cardEyebrow:"الفرق الأساسي",cardBig:"أتمّ ≠ أتقن",cardText:"الشهادة لازم توضح إيه اللي اتقاس واتلاحظ، وإيه اللي لسه مش معروف.",tabVerify:"تحقق من شهادة",tabInterview:"تجربة التقييم المحدد بوقت",tabConcept:"شرح الفكرة بالتفصيل",verifyTitle:"التحقق من شهادة للشريك",verifyDesc:"أدخل رقمًا تجريبيًا لمشاهدة الأدلة وراء النتيجة. البيانات هنا وهمية للتوضيح.",checkBtn:"تحقق من الشهادة",howTitle:"إزاي نفهم النتيجة؟",highTitle:"أدلة تدعم الكفاءة",highText:"يوجد تقييم له معنى ونتيجته مسجلة ويمكن ربطها بالمتعلم.",limitedTitle:"إتمام فقط / أدلة محدودة",limitedText:"الكورس اكتمل، لكن لا توجد أدلة كافية على الكفاءة.",reviewTitle:"تحتاج مراجعة",reviewText:"السجل ناقص أو متعارض أو محل اعتراض أو مرتبط بتغيير معيار الكورس.",fairnessNote:"استخدام AI مش مخالفة تلقائيًا. التقييم يركز على فهم المتعلم وتطبيقه وقدرته على شرح شغله، مش التخمين إنه استخدم AI.",demoTitle:"المقابلة المحددة بوقت — تجربة",demoDesc:"نموذج تفاعلي لتجربة التقييم المقترح. المؤقت والإجابات يعملان محليًا داخل المتصفح فقط.",screenConsentText:"فاهم إن التقييم الحقيقي ممكن يطلب مشاركة الشاشة بموافقة واضحة ومؤشر ظاهر. النموذج ده لا يصل للشاشة ولا يسجلها.",integrityConsentText:"فاهم قواعد التقييم وهصرّح بالأدوات اللي استخدمتها لو اتسألت. استخدام AI وحده مش إشارة سلبية تلقائية.",startBtn:"ابدأ التجربة",nextBtn:"احفظ الإجابة وانتقل",demoNotice:"حدود النموذج: تحديد فتح الرابط مرتين، فرض قيود المتصفح، التحقق الآمن من الهوية، التقاط الشاشة الفعلي، والتقييم من خلال خادم غير منفذة هنا.",sectionEyebrow:"القسم الأول من 3",questionHint:"جاوب كأنك في مقابلة حقيقية. الهدف فهم طريقة التفكير والوضوح، مش حفظ كلام جاهز.",conceptEyebrow:"المشكلة ← التصميم ← الثقة",conceptTitle:"نفرّق بين إتمام الكورس وإثبات التعلّم.",conceptIntro:"مش لازم نفرض نفس طريقة التقييم على كل الكورسات. لازم نوضح للشريك قوة الأدلة وحدودها، ونوفر طريقة منظمة لجمع أدلة إضافية عند الحاجة.",c1title:"1. سجل الإتمام",c1text:"يؤكد إن المتعلم حقق شروط الإتمام الحالية في المنصة، لكنه وحده لا يثبت الكفاءة.",c2title:"2. طبقة الأدلة",c2text:"تربط نتيجة الاختبار والمشروع والامتحان المراقب والمقابلة المنظمة بالشهادة.",c3title:"3. نتيجة الثقة",c3text:"توضح قوة الأدلة والفجوات وإصدار الكورس وحالة المراجعة بدل شارة نجاح ثنائية توحي باليقين.",rulesTitle:"قواعد المنتج",rulesList:["الكورسات التي لا تحتوي على تقييم تحصل على نتيجة «إتمام فقط / أدلة محدودة»، وليس ادعاءً بإثبات الكفاءة.","لا تُلغى الشهادات القديمة بصمت. تحتفظ بسجل الإتمام التاريخي ويمكن وسمها «قديمة — لم تُقيّم الأدلة وفق المعيار الحالي».","لكل نسخة معدلة من الكورس معيار بإصدار واضح. تُقيّم الشهادة وفق النسخة التي درسها المتعلم، ولا تُقارن تلقائيًا بمنهج جديد.","تُطبق قواعد الأدلة نفسها على متعلمي الشركات والأفراد. انخفاض التفاعل وحده لا يثبت ضعف التعلّم، ويُعرض سياق الحساب بشكل منفصل.","مشاركة الشاشة في أي تطبيق حقيقي تتطلب موافقة صريحة وشرحًا واضحًا وجمع الحد الأدنى من البيانات ومسار مراجعة بديلًا. النموذج لا يسجل الشاشة.","يُقيّم استخدام AI من خلال الإفصاح والفهم ونسبة العمل لصاحبه والقدرة على الشرح أو التعديل، لا باعتبار كل استخدام غشًا.","النتائج تساعد في اتخاذ القرار ولا تضمن الأداء الوظيفي. الأفضل أن يجمع صاحب العمل بينها وبين مقابلة أو عينة عمل مرتبطة بالدور."],flowTitle:"رحلة المتقدم المقترحة",f1title:"1. الهوية والقواعد",f1text:"فتح رابط محدد المدة، مراجعة قواعد الجلسة والمتصفح، توضيح الأدوات المسموحة، وأخذ الموافقة.",f2title:"2. ثلاثة أقسام",f2text:"الأول للمهارات الناعمة والخبرة، والثاني والثالث للمعرفة الفنية والتطبيق العملي.",f3title:"3. نتيجة واضحة",f3text:"عرض درجات منفصلة للمهارات الناعمة والأدلة الفنية ومصداقية الإجابات والاعتماد على الأدوات، مع الأدلة وملاحظات المراجع.",mvpNotice:"حدود الـ MVP: نبدأ بالتحقق من الشهادات وربط الأدلة والتقييم المحدد بوقت في 3 أقسام ومعيار مراجعة ونتيجة للشريك. نؤجل ربط LMS الكامل والمراقبة الآلية وكشف AI عالي الثقة. إشارات المتصفح وكشف AI غير مثالية ولا يجب تقديمها كدليل قاطع وحدها.",footerLeft:"LearnProof · نموذج تصوري لتحدي Career-180 رقم 90",footerRight:"البيانات تجريبية · ليست خدمة تحقق إنتاجية",evidenceLabel:"تغطية الأدلة",assessmentLabel:"نوع التقييم",versionLabel:"نسخة الكورس",evidenceTitle:"الأدلة وراء النتيجة",resultNote:"الإشارة تعكس الأدلة المتاحة لهذه الشهادة، ولا تضمن الأداء الوظيفي.",learner:"المتعلم",route:"مسار التعلّم",completion:"الإتمام",assessment:"التقييم",identity:"الهوية / نسبة العمل لصاحبه",version:"نسخة الكورس",toolUse:"الإفصاح عن AI والأدوات",notFound:"لم نجد سجلًا تجريبيًا. جرّب LP-2048 أو LP-1051 أو LP-3320 أو LP-7788.",started:"بدأت التجربة والمؤقت يعمل.",needConsent:"يرجى الموافقة على التنبيهين قبل بدء التجربة.",done:"انتهت التجربة. إجاباتك بقيت في هذا المتصفح ولم تُرسل إلى خادم.",timeUp:"انتهى الوقت. اكتملت التجربة.",question:"السؤال",of:"من",placeholder:"اكتب إجابتك هنا..."}
-};
-function setText(id,key){const el=document.getElementById(id);if(el&&copy[lang][key]!==undefined)el.textContent=copy[lang][key]}
-function switchLang(){
- lang=lang==="en"?"ar":"en";document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";document.getElementById("langBtn").textContent=lang==="en"?"العربية":"English";
- const map={topSub:"top",eyebrow:"eyebrow",heroTitle:"heroTitle",heroDesc:"heroDesc",pill1:"pill1",pill2:"pill2",pill3:"pill3",cardEyebrow:"cardEyebrow",cardBig:"cardBig",cardText:"cardText",tabVerify:"tabVerify",tabInterview:"tabInterview",tabConcept:"tabConcept",verifyTitle:"verifyTitle",verifyDesc:"verifyDesc",checkBtn:"checkBtn",howTitle:"howTitle",highTitle:"highTitle",highText:"highText",limitedTitle:"limitedTitle",limitedText:"limitedText",reviewTitle:"reviewTitle",reviewText:"reviewText",fairnessNote:"fairnessNote",demoTitle:"demoTitle",demoDesc:"demoDesc",screenConsentText:"screenConsentText",integrityConsentText:"integrityConsentText",startBtn:"startBtn",nextBtn:"nextBtn",demoNotice:"demoNotice",sectionEyebrow:"sectionEyebrow",questionHint:"questionHint",conceptEyebrow:"conceptEyebrow",conceptTitle:"conceptTitle",conceptIntro:"conceptIntro",c1title:"c1title",c1text:"c1text",c2title:"c2title",c2text:"c2text",c3title:"c3title",c3text:"c3text",rulesTitle:"rulesTitle",flowTitle:"flowTitle",f1title:"f1title",f1text:"f1text",f2title:"f2title",f2text:"f2text",f3title:"f3title",f3text:"f3text",mvpNotice:"mvpNotice",footerLeft:"footerLeft",footerRight:"footerRight",evidenceLabel:"evidenceLabel",assessmentLabel:"assessmentLabel",versionLabel:"versionLabel",evidenceTitle:"evidenceTitle",resultNote:"resultNote"};
- Object.entries(map).forEach(([id,k])=>setText(id,k));
- document.getElementById("rulesList").innerHTML=copy[lang].rulesList.map(x=>"<li>"+x+"</li>").join("");
- document.getElementById("certId").placeholder=lang==="ar"?"مثال: LP-2048":"e.g. LP-2048";
- document.getElementById("answer").placeholder=copy[lang].placeholder;
- renderQuestion();
- const active=document.querySelector(".panel.active");if(active?.id==="verify"&&document.getElementById("result").classList.contains("show"))showRecord(document.getElementById("certId").value.trim().toUpperCase());
+
+function searchCertificate(event) {
+  if (event) event.preventDefault();
+  const input = document.getElementById("certificate-id");
+  const id = input.value.trim().toUpperCase();
+  const message = document.getElementById("search-message");
+  const record = demoCertificates[id];
+
+  if (!record) {
+    document.getElementById("profile").classList.remove("visible");
+    document.getElementById("empty-profile").hidden = false;
+    message.textContent = "لم نعثر على هذا الرقم ضمن الأمثلة التجريبية. جرّب LP-2048 أو LP-1051 أو LP-3320.";
+    return;
+  }
+
+  message.textContent = "تم عرض سجل تجريبي لشرح شكل النتيجة.";
+  document.getElementById("empty-profile").hidden = true;
+  document.getElementById("profile").classList.add("visible");
+
+  document.getElementById("candidate-avatar").textContent = record.name.charAt(0);
+  document.getElementById("candidate-name").textContent = record.name;
+  document.getElementById("candidate-path").textContent = record.path;
+  document.getElementById("candidate-id").textContent = id;
+  document.getElementById("certificate-status").textContent = record.status;
+  document.getElementById("assessment-status").textContent = record.assessment;
+  document.getElementById("assessment-date").textContent = record.date;
+  document.getElementById("evidence-status").textContent = record.evidence;
+
+  const hasAssessment = record.overall !== null;
+  document.getElementById("assessment-details").hidden = !hasAssessment;
+  document.getElementById("completion-only").hidden = hasAssessment;
+  document.getElementById("overall-score").textContent = hasAssessment ? record.overall : "—";
+  document.getElementById("employer-summary").textContent = record.summary;
+
+  if (hasAssessment) {
+    setScore("soft", record.soft);
+    setScore("technical", record.technical);
+    setScore("evidence", record.evidenceScore);
+  }
 }
-document.getElementById("langBtn").addEventListener("click",switchLang);
-document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".panel").forEach(x=>x.classList.toggle("active",x.id===b.dataset.tab));}));
-function showRecord(id){
- const r=records[id], box=document.getElementById("result");box.classList.add("show");
- if(!r){document.getElementById("resultStatus").className="status unverified";document.getElementById("resultStatus").textContent=lang==="ar"?"غير موجود / يحتاج مراجعة":"Not found / review needed";document.getElementById("resultName").textContent=copy[lang].notFound;document.getElementById("resultLearner").textContent="";document.getElementById("evidenceRows").innerHTML="";document.getElementById("evidenceScore").textContent="—";document.getElementById("assessmentType").textContent="—";document.getElementById("courseVersion").textContent="—";document.getElementById("resultNote").textContent=copy[lang].notFound;return}
- const statusText=lang==="ar"?(r.status==="high"?"أدلة تدعم الكفاءة":"إتمام فقط / أدلة محدودة"):(r.status==="high"?"Evidence-supported":"Completion only / limited evidence");
- document.getElementById("resultStatus").className="status "+r.status;document.getElementById("resultStatus").textContent=statusText;document.getElementById("resultName").textContent=r.name;
- document.getElementById("resultLearner").textContent=(lang==="ar"?"المتعلم: ":"Learner: ")+r.learner+" · "+(lang==="ar"?"المسار: ":"Route: ")+r.route;
- document.getElementById("evidenceScore").textContent=r.score+"/100";document.getElementById("assessmentType").textContent=r.type;document.getElementById("courseVersion").textContent=r.version;
- document.getElementById("evidenceRows").innerHTML=r.items.map(it=>`<div class="scoreline"><span>${it[0]}</span><b>${it[1]}</b></div>`).join("");
- document.getElementById("resultNote").textContent=r.note;
+
+function setScore(key, value) {
+  document.getElementById(key + "-score").textContent = value + "/100";
+  document.getElementById(key + "-bar").style.width = value + "%";
 }
-document.getElementById("verifyForm").addEventListener("submit",e=>{e.preventDefault();showRecord(document.getElementById("certId").value.trim().toUpperCase())});
-function renderQuestion(){
- const q=qs[lang][qi]||qs[lang][2];document.getElementById("sectionEyebrow").textContent=q.section;document.getElementById("question").textContent=q.q;document.getElementById("questionHint").textContent=q.hint;document.getElementById("qCount").textContent=(lang==="ar"?"السؤال ":"Question ")+(qi+1)+" "+copy[lang].of+" 3";document.getElementById("progressBar").style.width=(qi/3*100)+"%";
+
+function useExample(id) {
+  document.getElementById("certificate-id").value = id;
+  searchCertificate();
 }
-function finish(msg){running=false;clearInterval(timerId);document.getElementById("answer").disabled=true;document.getElementById("nextBtn").classList.add("hidden");document.getElementById("startBtn").classList.remove("hidden");document.getElementById("startBtn").textContent=lang==="ar"?"إعادة التجربة":"Restart demo";document.getElementById("endMessage").classList.remove("hidden");document.getElementById("endMessage").textContent=msg;document.getElementById("progressBar").style.width="100%";}
-document.getElementById("startBtn").addEventListener("click",()=>{
- if(running){qi=0;seconds=720;answers=[];document.getElementById("answer").value="";document.getElementById("endMessage").classList.add("hidden");}
- if(!document.getElementById("screenConsent").checked||!document.getElementById("integrityConsent").checked){alert(copy[lang].needConsent);return}
- running=true;document.getElementById("answer").disabled=false;document.getElementById("startBtn").classList.add("hidden");document.getElementById("nextBtn").classList.remove("hidden");document.getElementById("answer").focus();renderQuestion();document.getElementById("endMessage").classList.add("hidden");
- timerId=setInterval(()=>{seconds--;document.getElementById("timer").textContent=Math.floor(seconds/60).toString().padStart(2,"0")+":"+Math.max(0,seconds%60).toString().padStart(2,"0");if(seconds<=0)finish(copy[lang].timeUp)},1000);
-});
-document.getElementById("nextBtn").addEventListener("click",()=>{if(!running)return;answers[qi]=document.getElementById("answer").value;qi++;if(qi>=3){finish(copy[lang].done);return}document.getElementById("answer").value="";renderQuestion();});
-document.getElementById("timer").textContent="12:00";showRecord("LP-2048");
+
+// محاكاة جلسة التقييم — ليست جلسة توظيف حقيقية.
+const questions = [
+  {
+    title:"القسم الأول: المهارات الشخصية والخبرات",
+    text:"احكِ عن موقف واجهت فيه مشكلة أثناء العمل أو الدراسة. ما المشكلة؟ كيف حللتها؟ وما القرار الذي اتخذته ولماذا؟"
+  },
+  {
+    title:"القسم الثاني: المفاهيم الفنية",
+    text:"اختر مفهومًا أساسيًا من تخصصك. اشرحه بكلماتك، ثم وضّح متى تستخدمه وما الأخطاء التي قد يقع فيها المبتدئ."
+  },
+  {
+    title:"القسم الثالث: التطبيق العملي",
+    text:"تخيّل أنك تواجه مشكلة عملية مرتبطة بتخصصك. ما الخطوات التي ستتبعها؟ ما المعلومات التي تحتاج إليها؟ وكيف ستعرف أن الحل نجح؟"
+  }
+];
+
+let currentQuestion = 0;
+let secondsLeft = 30 * 60;
+let timerInterval = null;
+let answers = [];
+
+function renderClock() {
+  const mins = Math.floor(secondsLeft / 60).toString().padStart(2,"0");
+  const secs = (secondsLeft % 60).toString().padStart(2,"0");
+  document.getElementById("clock").textContent = mins + ":" + secs;
+  document.getElementById("time-progress").style.width =
+    ((1800 - secondsLeft) / 1800 * 100) + "%";
+}
+
+function startAssessment() {
+  currentQuestion = 0;
+  answers = [];
+  secondsLeft = 1800;
+  document.getElementById("start-area").hidden = true;
+  document.getElementById("demo-result").hidden = true;
+  document.getElementById("question-area").hidden = false;
+  document.getElementById("attempt-info").textContent =
+    "بدأت المحاكاة. هذا العداد يعمل داخل الصفحة فقط، ولا يفرض حدًا آمنًا للمحاولات.";
+  showQuestion();
+  renderClock();
+
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    secondsLeft--;
+    renderClock();
+    if (secondsLeft <= 0) finishAssessment(true);
+  }, 1000);
+}
+
+function showQuestion() {
+  document.getElementById("question-title").textContent = questions[currentQuestion].title;
+  document.getElementById("question-text").textContent = questions[currentQuestion].text;
+  document.getElementById("question-count").textContent = (currentQuestion + 1) + " من 3";
+  document.getElementById("answer").value = answers[currentQuestion] || "";
+  document.getElementById("next-question").textContent =
+    currentQuestion === 2 ? "إنهاء المحاكاة ✓" : "حفظ الإجابة والانتقال ←";
+}
+
+function nextQuestion() {
+  answers[currentQuestion] = document.getElementById("answer").value.trim();
+  if (currentQuestion < questions.length - 1) {
+    currentQuestion++;
+    showQuestion();
+  } else {
+    finishAssessment(false);
+  }
+}
+
+function finishAssessment(timeExpired) {
+  clearInterval(timerInterval);
+  document.getElementById("question-area").hidden = true;
+  document.getElementById("demo-result").hidden = false;
+  document.getElementById("start-area").hidden = true;
+  document.getElementById("attempt-info").textContent =
+    timeExpired ? "انتهى الوقت التجريبي." : "تم إنهاء الأجزاء التجريبية الثلاثة.";
+}
+
+function resetAssessment() {
+  clearInterval(timerInterval);
+  currentQuestion = 0;
+  secondsLeft = 1800;
+  answers = [];
+  renderClock();
+  document.getElementById("question-area").hidden = true;
+  document.getElementById("demo-result").hidden = true;
+  document.getElementById("start-area").hidden = false;
+  document.getElementById("answer").value = "";
+  document.getElementById("attempt-info").textContent =
+    "المحاولات في هذا النموذج تجريبية ومحلية، ولا تمثل نظامًا حقيقيًا لإدارة المحاولات.";
+}
+
+// عرض الوقت الأولي دون تشغيل المؤقت.
+renderClock();
 </script>
 </body>
 </html>
